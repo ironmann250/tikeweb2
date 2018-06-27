@@ -3,27 +3,35 @@ from tikeshell.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
+from django.http import  HttpResponse,JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate,login
 from pprint import pprint as pp
 from itertools import chain
-import time,json
+import time,json,string,random
 from io import StringIO
 from tikeshell.utils import qrcodeGenerator
 from django.contrib import messages
 import smtplib
- 
-
- 
-
-
+from tikeshell.utils import directpaylib as dpapi
+from smsapi.client import SmsAPI
+from smsapi.responses import ApiError
 #Global values
 views='/'
-global authentic
+global authentic#remove use django auth
 authentic="0"
 
 #utility functions
-def longdiv(divisor,divident):
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    """
+    generate a 6 character pi that is unique in db/ticket
+    """
+    pin=''.join(random.choice(chars) for _ in range(size))
+    if Ticket.objects.filter(pin=pin).count() !=0:
+        id_generator()
+    else:
+        return pin
+
+def longdiv(divisor,divident): #hha longdiv is a better name i geuss
   quotient,remainder=divmod(divisor,divident)
   return quotient,remainder
 
@@ -55,7 +63,6 @@ def get_cols(data,cols=2):
 
     for d in data:
         chunk.append(d)
-        #data.pop(val-1)
         if cnt==pts:
             chunks.append(chunk)
             cnt=0
@@ -104,7 +111,7 @@ def get_similar_events(event,choices=3):
 #this func was made entirely so we generate qrcodes without the need of any temp filesys
 #last try is to make this as an object of the Ticket models class and call it on the ticket simply
 #this will not show any vurnelabilities
-#tried it but we can't output directly a httpresponse in html
+#tried it but we can't output directly a return HttpResponse in html
 def render_qrcode(request,text): #this is considered a helper function not really a view func
     '''
     #this here is just for the idea of the previous and projected work that had security vurnelabilities
@@ -117,7 +124,7 @@ def render_qrcode(request,text): #this is considered a helper function not reall
     event_name=Show.objects.get(id=ticket.event_id)
     text='name: %s event: %s pin: %s' % (ticket.full_name,event_name,ticket.pin)'''
     qrcode=save_to_string(qrcodeGenerator.init(text)) #render and save it in mem
-    response=HttpResponse(qrcode,content_type='image/png') 
+    response= HttpResponse(qrcode,content_type='image/png') 
     return response
 #next is the function that renders the hallmap
 #def render_hallmap(event):
@@ -355,6 +362,7 @@ def signup(request):
         return render(request,'html/signup.html',{})
 @login_required
 def entertainment(request,event_id):
+    #TODO:autofill payment fields
     if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
@@ -456,3 +464,76 @@ def api_update_shows(request):#put a field of a password
 #	return render(request,'html/sitemap.html')
 
 #def purchase(request):
+@login_required
+def pay_portal(request):
+    previous_url = request.META.get('HTTP_REFERER')
+    print previous_url
+    if request.user.is_authenticated:
+        account=Account.objects.get(user=request.user)
+        if ['name','phone'] not in request.POST.keys():
+            name=account.full_name
+            phone=account.phone_number
+            email=account.email
+        else:
+            name=request.POST['name']
+            phone=request.POST['phone']
+            email='tike@gmail.com'#put company email in settings
+        if True:
+            if 'entertainment' in previous_url:
+                event=Show.objects.get(id=int(request.POST['event_id']))
+            elif 'educational' in previous_url:#oh no payment here hha over did again
+                event=Other_events.objects.get(id=int(request.POST['event_id']))
+            else:
+                return HttpResponseRedirect(previous_url)
+            amount=int(request.POST['amount'])
+            if amount <=0:
+                return HttpResponseRedirect(previous_url)
+            tk_type=tickettype.objects.get(id=int(request.POST['type']))
+            price=tk_type.amount*amount
+            pin=id_generator()
+            dpapi.dt['fname']=name
+            dpapi.dt['lname']=' '.join(name.split(' ')[1:])
+            dpapi.dt['email']=email
+            dpapi.dt['phone']=phone
+            dpapi.dt['price']=price
+            if request.META['HTTP_HOST'] == None:
+                return HttpResponseRedirect(previous_url)
+            dpapi.dt['redirect-url']=request.META['HTTP_HOST']+'/validate?pin='+pin
+            res=dpapi.create_token()
+            newticket= Ticket.objects.create(event_id=event.id,
+                pin=pin,full_name=name,tickettype_id=tk_type.id
+                ,phone_number=phone,user_id=account.id,token=res['token'])
+            newticket.save()
+            print res
+            print request.META['HTTP_HOST']+'/validate?pin='+pin
+            print res['url']
+            return HttpResponseRedirect(res['url'])
+        if False:
+            return HttpResponseRedirect(previous_url)
+
+def validate(request):
+    if True:
+        pin=request.GET['pin']
+        ticket=Ticket.objects.get(pin=pin)
+        dpapi.ddt['transaction_token']=ticket.token
+        event=Show.objects.get(id=ticket.event_id)
+        tk_type=tickettype.objects.get(id=ticket.tickettype_id)
+        dpapi.verify_token()
+        ticket.payed=True
+        ticket.save()
+        #add sms stuff
+        api = SmsAPI()
+        api.set_username('tike')
+        api.set_password('869579e0598bd70a216261a80507efed')
+        api.auth_token = 'q6QWErR7qkI9MNzA4bJJ86fltC5KfselYYiO2DUi'
+        api.service('sms').action('send')
+        api.set_content('[%1%] this ticket is for [%2%] in [%3%] at [%4%] your pin is [%5%],Help Call: 07893637884 Thank you! TIKE.')
+        api.set_params(ticket.full_name,event.title,tk_type.tike_type,event.date.strftime("%d-%b at %H:%M"),pin) 
+        api.set_to(ticket.phone_number)
+        api.set_from('Tike ltd') #Requested sender name
+        result = []#api.execute()
+        for r in result:
+            print (r.id, r.points, r.status)
+        return HttpResponseRedirect("/all")#render thank you page
+    if False:
+        return HttpResponseRedirect("/")

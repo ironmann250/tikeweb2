@@ -77,38 +77,40 @@
         </div>
       
 {% if event.tickets_no %}
-<dformiv class="container">
+<div class="container" >
+    
     <br>
        <h3 class="faq-title" id="purchase"> Purchase</h3>
-           <form class="form" action="/purchase/" method="POST" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
-            {% csrf_token %}  
+           <form class="form" action="/pay_portal/" method="POST" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+             {% csrf_token %}
+             <input type="hidden" name="event_id" value="{{event.id}}">
             <div class="form-group ">
                     <label for="name" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="First &amp; Last Name" value="">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="First &amp; Last Name" value="{{account.full_name}}">
                         <p></p>                		</div>
                     </div>
                     <div class="form-group ">
                 		<label for="phone" class="col-sm-2 control-label">phone</label>
                 		<div class="col-sm-4">
 
-                			<input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone number" value="">
+                			<input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone number" value="{{account.phone_number}}">
                 			<p></p>                		</div>
                         </div>
                         <div class="form-group ">
                             <label for="nt" class="col-sm-2 control-label">#</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" id="number" name="number" placeholder="Number of tickets" value="">
+                                <input type="number" class="form-control" id="number" name="amount" placeholder="Number of tickets" value="1" min="1">
                                 <p></p>                		
                             </div>
                             </div>
                             <div class="form-group ">
                                     <label for="tp" class="col-sm-2 control-label">Ticket type</label>
                                     <div class="col-sm-4">
-                                            <select class="form-control">
+                                            <select name='type' class="form-control">
                                                     {% for t in tickettypes %}
                                         
-                                                    <option value="{{t.tike_type}}">{{t.tike_type}}</option>
+                                                    <option value="{{t.id}}">{{t.tike_type}}</option>
                                         
                                                     {% endfor %}
                                                 </select>
@@ -116,7 +118,7 @@
                                              </div>
                                     </div>
                             <div class="col-sm-4 col-sm-offset-2" style="margin-top: 30px;">
-                                    <a class="btn btn-default btn-lg" href="#purchase">Order Now</a>
+                                    <input class="btn btn-default btn-lg" type='submit' value="Order Now">
                             </div>
                                 
                         </form>
@@ -126,6 +128,7 @@
             <br>
                <h3 class="faq-title" id="purchase"> Purchase</h3>
                    <div class="form" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+                        
                         <div class="form-group ">
                             <label for="name" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-4">
@@ -142,14 +145,14 @@
                                 <div class="form-group ">
                                     <label for="nt" class="col-sm-2 control-label">#</label>
                                     <div class="col-sm-4">
-                                        <input type="number" class="form-control" id="number" name="number" placeholder="Number of tickets" value="" disabled>
+                                        <input type="number" class="form-control" id="number" name="amount" placeholder="Number of tickets" value="" disabled>
                                         <p></p>                		
                                     </div>
                                     </div>
                                     <div class="form-group ">
                                             <label for="tp" class="col-sm-2 control-label">Ticket type</label>
                                             <div class="col-sm-4">
-                                                    <select class="form-control" disabled>
+                                                    <select name='type' class="form-control" disabled>
                                                             {% for t in tickettypes %}
                                                 
                                                             <option value="{{t.tike_type}}">{{t.tike_type}}</option>

@@ -41,7 +41,7 @@ class Account(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     full_name=models.CharField(max_length=200)
     phone_number=models.BigIntegerField(blank=True)
-    
+    #address?
     #fav_tags=models.ManyToManyField(Category)
     
     def __str__(self):
@@ -136,6 +136,7 @@ class Ticket(models.Model):
     used=models.BooleanField(default=False)
     is_user=models.BooleanField(default=True)
     date=models.DateTimeField(default=today())
+    token=models.CharField(max_length=72)
     def __str__(self):
         return self.full_name+": "+self.pin
     #this here produce the qrcode was wrote for security reasons

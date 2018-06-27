@@ -26,7 +26,7 @@ ddt={'company_token':'9F416C11-127B-4DE2-AC7F-D5710E4C5E0A',
      'transaction_token':'910285C5-15ED-4755-875E-59B820AC0454'} #test dataa for cancel token and verify token
 #company token: 9F416C11-127B-4DE2-AC7F-D5710E4C5E0A
 #3854,5525
-def create_token(mapping,headers = {'Content-Type': 'application/xml'}):
+def create_token(mapping=dt,headers = {'Content-Type': 'application/xml'}):
 	data=Template('''<?xml version="1.0" encoding="utf-8"?>
 	<API3G>
 	<CompanyToken>$company_token</CompanyToken>
@@ -64,7 +64,7 @@ def create_token(mapping,headers = {'Content-Type': 'application/xml'}):
 					'ref':xml_rec.find('TransRef').text,
 					'url':red_url+xml_rec.find('TransToken').text}
 			
-def verify_token(mapping,headers = {'Content-Type': 'application/xml'}):
+def verify_token(mapping=ddt,headers = {'Content-Type': 'application/xml'}):
     data=Template('''<?xml version="1.0" encoding="utf-8"?>
     <API3G>
         <CompanyToken>$company_token</CompanyToken>
@@ -83,7 +83,7 @@ def verify_token(mapping,headers = {'Content-Type': 'application/xml'}):
         raise RequestError(xml_rec.find('ResultExplanation').text+' [error code: '+xml_rec.find('Result').text+' ]')
 
 
-def cancel_token(mapping,headers = {'Content-Type': 'application/xml'}):
+def cancel_token(mapping=ddt,headers = {'Content-Type': 'application/xml'}):
     data=Template('''<?xml version="1.0" encoding="utf-8"?>
     <API3G>
         <CompanyToken>$company_token</CompanyToken>

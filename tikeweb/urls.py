@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'^support/',tikeshell_views.support),
     url(r'^all/',tikeshell_views.all),
     url(r'^search/',tikeshell_views.search),
+    url(r'^pay_portal/',tikeshell_views.pay_portal),
+    url(r'^validate/',tikeshell_views.validate),
     url(r'^educational/(?P<event_id>\d+)',tikeshell_views.educational),
     url(r'^entertainment/(?P<event_id>\d+)',tikeshell_views.entertainment),
     url(r'^dashboard/(?P<user>\d+)',tikeshell_views.dashboard),
