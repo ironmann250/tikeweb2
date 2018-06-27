@@ -478,7 +478,7 @@ def pay_portal(request):
             name=request.POST['name']
             phone=request.POST['phone']
             email='tike@gmail.com'#put company email in settings
-        if True:
+        try:
             if 'entertainment' in previous_url:
                 event=Show.objects.get(id=int(request.POST['event_id']))
             elif 'educational' in previous_url:#oh no payment here hha over did again
@@ -508,11 +508,11 @@ def pay_portal(request):
             print request.META['HTTP_HOST']+'/validate?pin='+pin
             print res['url']
             return HttpResponseRedirect(res['url'])
-        if False:
+        except:
             return HttpResponseRedirect(previous_url)
 
 def validate(request):
-    if True:
+    try:
         pin=request.GET['pin']
         ticket=Ticket.objects.get(pin=pin)
         dpapi.ddt['transaction_token']=ticket.token
@@ -535,5 +535,5 @@ def validate(request):
         for r in result:
             print (r.id, r.points, r.status)
         return HttpResponseRedirect("/all")#render thank you page
-    if False:
+    except:
         return HttpResponseRedirect("/")
