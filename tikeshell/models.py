@@ -38,7 +38,7 @@ class Category(models.Model):
 
 class Account(models.Model):
     email=models.EmailField(blank=True)
-    user=models.ForeignKey(User)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     full_name=models.CharField(max_length=200)
     phone_number=models.BigIntegerField(blank=True)
     

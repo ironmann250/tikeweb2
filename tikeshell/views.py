@@ -131,6 +131,9 @@ def home(request):
     all_events={}
     primary_event= Show.objects.get(level__level="Main")
     all_events= Show.objects.filter(level__level="Important")
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     for event in all_events:
         if event.level.level == "Main":
             primary_event=event
@@ -197,7 +200,7 @@ def home(request):
     else:
         name=authentic.full_name
 
-    return render(request,'html/index.html',{'col1':col1,'col2':col2, 'primary_event': primary_event,})
+    return render(request,'html/index.html',locals())
 def event(request,id):
     global views 
     views='event'
@@ -205,14 +208,17 @@ def event(request,id):
 def all(request):
     #get events in that category
     #order by likes or such thin
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     global views
     global authentic
     views="/all/"
     all_events={}
     all_events= list(Show.objects.all())  
     all_other_events= list(Other_events.objects.all())
-    print len(all_events)
-    print get_cols(all_events,3)
+    print (len(all_events))
+    print (get_cols(all_events,3))
     ecols=get_cols(all_events,3)
     ocols=get_cols(all_other_events,3)
     '''
@@ -270,7 +276,7 @@ def all(request):
     else:
         name=authentic.full_name
 
-    return render(request,'html/all.html',{'name': name,'ocols':ocols,'ecols':ecols})
+    return render(request,'html/all.html',locals())
 
 
 
@@ -304,6 +310,9 @@ def loginpg(request):
             return render(request,'html/login.html',{})
 
 def search(request):
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     if request.method=='GET':
         try:
             q=request.GET['q']
@@ -344,18 +353,29 @@ def signup(request):
             return render(request,'html/signup.html',{'message':'You did not successful sign up. Please use another email.'})
     else:
         return render(request,'html/signup.html',{})
+@login_required
 def entertainment(request,event_id):
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     event=Show.objects.get(id=event_id)
     tickettypes= tickettype.objects.filter(event=event_id)
-    return render(request,'html/cart.html',{'event':event,'tickettypes':tickettypes})
+    return render(request,'html/cart.html',locals())
 @login_required
 def educational(request, event_id):
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     event=Other_events.objects.get(id=event_id)
     badgetypes= badgetype.objects.filter(event=event_id)
-    return render(request,'html/cart_other.html', {'event':event, 'badgetypes':badgetype})
+    return render(request,'html/cart_other.html', locals())
 #@login_required 
 
-def support(request):#an html page explaining the process of buying a ticket & which may also include a way to ask for help
+def support(request):
+    #an html page explaining the process of buying a ticket & which may also include a way to ask for help
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
     if request.method=='POST':
         try:
             email= request.POST['email']
@@ -369,12 +389,12 @@ def support(request):#an html page explaining the process of buying a ticket & w
             msg = "Name:{{name}}/nEmail:{{email}}/n Message:{{message}}".format(name,email,message)
             server.sendmail("tikerwanda@gmail.com", "info@tike.co.rw", msg)
             server.quit()
-            return render(request,'html/help.html',{'message':'Your message was successful sent'})
+            return render(request,'html/help.html',{'message':'Your message was successful sent'},locals())
 
         except KeyError:
-            return render(request,'html/help.html',{'message':'You did not submit your message./n Please try again'})
+            return render(request,'html/help.html',{'message':'You did not submit your message./n Please try again'},locals())
     else:
-        return render(request,'html/help.html',{})
+        return render(request,'html/help.html',locals())
 
 @login_required
 def dashboard(request): # profile management
@@ -382,7 +402,7 @@ def dashboard(request): # profile management
     #basket=Ticket.objects.filter(user_id=user,payed=False)
     #my_tickets=Ticket.objects.filter(user_id=user,payed=True)
     #similar_events=get_similar_events(event,6) #PUBLICITY_EVENTS
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
         tickets=Ticket.objects.filter(user_id=user.id)
@@ -434,3 +454,5 @@ def api_update_shows(request):#put a field of a password
     return JsonResponse({'info':'TODO'})
 #def sitemap(request): NO need of a sitemap yet!
 #	return render(request,'html/sitemap.html')
+
+#def purchase(request):

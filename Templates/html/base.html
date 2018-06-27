@@ -26,7 +26,7 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     
     <ul class="navbar-nav mr-auto mt-lg-0">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -47,8 +47,8 @@
       <a href="https://twitter.com/TikeLtd"><i class="fa fa-twitter-square fa-lg" style="margin: 2px; margin-right: 10px; color: #1DA1F2"></i></a> 
       <a href="https://www.instagram.com/tikerwanda/?hl=en"><i class="fa fa-instagram fa-lg" style="margin: 2px; margin-right: 10px; color: #262626"></i></a> 
       </span>
-      {% if name %}
-      <p>{{name}}</p>
+      {% if account %}
+      <p class="user"><a href="/dashboard/{{account.user}}/">{{account.full_name}}</a></p>
       {% else %}
       <button class="btn btn-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#modal">Log In</button>
       
@@ -67,19 +67,19 @@
          <br>
     <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
-            <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" name="email" required>
     </div>
         <br>
         <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input type="text" class="form-control" aria-label="Password" placeholder="Password">
+            <input type="password" class="form-control" aria-label="Password" placeholder="Password" name="password" required>
         </div>
         <br>
         <a href="/signup/" class="message_to_user"> Is it your first time? Sign Up!</a>
         <br><br>
 
         <div>
-         <a class="btn btn-success my-2 my-sm-0" type="submit">Log In</a> 
+         <button class="btn btn-success my-2 my-sm-0" type="submit">Log In</button> 
      </div>
 
      </form>
