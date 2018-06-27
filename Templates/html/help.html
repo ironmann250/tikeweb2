@@ -1,0 +1,146 @@
+{% extends 'html/base.html'%}
+{% load static %}
+{% load staticfiles %}
+
+{% block content %}
+<main style="background: #fff">
+<div id="contact">
+			<div class="container"  style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+				<div class="row">
+					
+					<form class="col-md-8 col-sm-12" role="form" action="/support/" method="POST">
+                        {% csrf_token %}
+                        <p style="font-size: 40px;padding:0 auto; color: #ffa73a;"> Let our support team help!<br> Leave a message here.</p>
+				        <div class="form-group ">
+                		<label for="name" class="col-sm-2 control-label">Name</label>
+                		<div class="col-sm-10">
+                			<input type="text" class="form-control" id="name" name="name" placeholder="First &amp; Last Name" value="" required>
+                			<p></p>                		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<label for="email" class="col-sm-2 control-label">Email</label>
+                    		<div class="col-sm-10">
+                    			<input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="" required>
+                    			<p></p>                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<label for="message" class="col-sm-2 control-label">Message</label>
+                    		<div class="col-sm-10">
+                    			<textarea class="form-control" rows="4" name="message" required></textarea>
+                    			<p></p>                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
+                    		<div class="col-sm-10">
+                    			<input type="text" class="form-control" id="human" name="human" placeholder="Your Answer">
+                    			<p></p>                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<div class="col-sm-10 col-sm-offset-2">
+                    			<input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary" required>
+                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<div class="col-sm-10 col-sm-offset-2">
+                    		<p class="message_to_user" style="font-size:30px;">{{message}}</p>		
+                    		</div>
+                    	</div>
+					</form>
+                    <div class="col-md-4 col-sm-12 wow fadeIn animated" data-wow-delay="0.9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeIn;">
+						<address style="color: #999">
+							<h3 style="color: green;">Visit Office</h3>
+							<p class="mb-md-4"><i class="fa fa-map-marker too-icon"></i> KK 19 av 9,<br> &nbsp; Camille House, Kigali, Rwanda</p>
+							<p class="mb-md-4"><i class="fa fa-phone too-icon"></i> (250)78316070 / 78267775</p>
+							<p class="mb-md-4"><i class="fa fa-envelope-o too-icon"></i> tikerwanda@gmail.com</p>
+                            <span class="mb-md-4">
+                                <a href="#"><i class="fa fa-facebook-official fa-lg" style="margin: 2px; margin-right: 10px; color: #3B5998;"></i></a> 
+                                <a href="#"><i class="fa fa-twitter-square fa-lg" style="margin: 2px; margin-right: 10px; color: #1DA1F2"></i></a> 
+                                <a href="#"><i class="fa fa-instagram fa-lg" style="margin: 2px; margin-right: 10px; color: #262626"></i></a> 
+                            </span>
+                        
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+    <div class="faq">
+     <div class="container">
+        <h3 class="faq-title">FAQ</h3>
+        <hr>
+         <div class="faq-set" > 
+             <p class="faq-question">1.	How do I buy a ticket?</p>
+             <p class="faq-answer"> Go on the home page at tike.rw, select your favorite event, and to the next page choose the ticket category and price. Log-in if you bought a ticket before or create an account if it is your first time.<br>
+After you will view all your orders (if many) and make a check-out and be directed to the payment page where you choose your suitable payment means.
+</p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question" id="payment">2. How do I pay for the ticket?</p>
+             <p class="faq-answer">Payments are made using bank cards and your mobile phone. When you use your bank card, enter card number and you will be asked to input your pin and click then the payment is made and you receive your ticket.<br>
+For the mobile users, enter your phone number and you will see a transaction directly into your phone and accept the transaction and input your PIN and then click “okay” and you automatically receive your ticket.
+ </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">3.	How do I get my ticket?</p>
+             <p class="faq-answer">Tike.rw sells tickets using the most advanced mobile technology. Your ticket is in form of an SMS on the number you entered in and in the email you used in creating your account. </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">4.	What if I do not get my ticket?</p>
+             <p class="faq-answer">If you made a payment and did not receive the ticket you paid for, feel free to contact our support team at support@tike.rw or call +250787316070 and fix the issue. </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">5.	Is there a fixed time period that early birds can be bought?</p>
+             <p class="faq-answer">Event organizers are the one to set the duration of the presale period. We do notify you for a new event in your account and on all the platforms we use.</p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">6.	What if I lose the phone which I bought a ticket with?</p>
+             <p class="faq-answer">There is no problem with losing the phone with which you bought the ticket or forget the password of your email. Feel free to contact our support team at support@tike.rw or call +2507873160 and help you recovering your ticket at the phone number you are currently using.<br>
+N.B: please do not use this feature as a fraud argument, because if we recover your ticket, the QR Code and the PIN in the ticket sent to the phone number declared to have been lost are automatically degenerated and hence can’t be recognized by our scanners at the event door.
+</p>
+         </div>
+        <div class="faq-set"> 
+             <p class="faq-question">7.	Is it possible to transfer my ticket to a friend or family member?</p>
+             <p class="faq-answer"> Yes. Contact our support team at support@tike.rw or call them at +250787316070, and give them the name of the old number where the ticket was sent and the new number you wish your ticket to be sent and it is then done. The old ticket QR Code and PIN are degenerated and new security codes are generated to the ticket sent to the phone number where the ticket was transferred.</p>
+         </div>
+         
+         <div class="faq-set"> 
+             <p class="faq-question">8.	What can I do if I want to resell my ticket?</p>
+             <p class="faq-answer">If you want to resell your ticket, contact our support team at support@tike.rw or contact +250787316070 and they will assist you. Your ticket is put on auction basing on the price you wish and interested buyers may bid. You get your refund in 3 day (72hrs) following your resale. A 10% fee is deducted to the refund. </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">9.	Is there a limit in number of tickets one person (user) can buy?</p>
+             <p class="faq-answer">As we sell tickets for event organizers, we highly protect their benefits as well as those of the event attendees. To avoid fraud and any false usage of tickets, one user is allowed a limited number of 5 tickets. If he/she wants more, fell free to contact our support team at support@tike.rw or call them at +250787316070. </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question" id="refund">10. What happens if I cancel my ticket?</p>
+             <p class="faq-answer">You do have rights to cancel your ticket if you do not want to attend the event due to your personal issues. Contact our support team at support@tike.rw or call them at +250787316070. A 10% fee deducted to the refund.</p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">11. How do I get refunded if an event is cancelled or rescheduled?</p>
+             <p class="faq-answer">If an event is rescheduled, we inform all ticket buyers about the new event date so that those who wish to make resale or cancellations can make it.  Refunds for cancelled events are issued following our refund policy.<br>
+The refund is transferred to the account of the user using the same means with which he paid. If you paid using mobile payment, your mobile payment is the one to be debited. If one used bank cards, his bank account is the one to be debited.  For more information contact your support team at support@tike.rw or call them at +250787316070.
+ </p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">12. What am I supposed to do at the event venue entrance?</p>
+             <p class="faq-answer">At the venue entrance, in your SMS click on the link in it and it directs you to your ticket with a QR Code and show it to one of our agents or simply show him the PIN in the SMS and he scans security details and grant you access.</p>
+         </div>
+         <div class="faq-set"> 
+             <p class="faq-question">13. What can I do if In case I am told that my ticket is a false one?</p>
+             <p class="faq-answer">If our agent tells you that your ticket is false, tell the agent to connect you to the event manager and if not satisfied contact our support team at +250787316070 and they may assist you.</p>
+         </div>
+        
+        </div>
+    </div>
+</main>
+
+<div class="footer_event_page">
+    <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+    <div class="container">
+        <br>
+        <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+    </div>
+
+</div>
+
+{% endblock %}
+        

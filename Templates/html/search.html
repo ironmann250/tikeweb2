@@ -1,0 +1,94 @@
+{% extends 'html/base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block content %}
+<main>
+    <div class="other-events mt-ms-3">
+         <a class="btn btn-danger my-2 my-sm-0 all" href="/all/">More Events</a>
+        <h3 class="event_centering"> Search Results</h3>
+            <div class="sketch">
+                <div class="pub"></div>
+                
+                <div class="event-list" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+             <div class="container">
+                 <div class="row">
+                    {% for col in cols %}
+                    <div class="col-sm-12 col-md-4">
+                        <div style="display:grid;">
+                            {% for event in col%}
+                            {%if event%}
+                            <div>
+                                    <div class="card">
+                                            <img class="card-img-top" src="{{event.image.url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
+                                            <div class="card-body">
+                                              <h5 class="card-title">{{event.title}}</h5>
+                                              <p class="card-text">{{event.venue}} | {{event.date}}</p>
+                                              <br>
+                                              <a href="{{event.url}}{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                            </div>
+                                          </div>  
+                            </div>
+                            <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body sign" style="padding: 20px;">
+                            <img src="{{event.image.url}}" width="100%" height="auto">                  
+                            </div>
+                              </div>
+                              </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-3">
+                        <h3>Advertise here!</h3>
+                           <a><img src="{% static '/images/comedyknights.jpg'%}" width="100%" height="auto"></a>
+                    </div
+        </div>
+                 </div>
+                 </div>
+</main>
+
+<div class="footer">
+	<div class="container">
+	   <div class="footer_top row">
+		<div class="col-md-6">
+			<h3 style="color: rgb(255, 167, 58); border-bottom: 2px solid color: rgb(255, 167, 58) ">Contacts</h3>
+			<address class="address">
+              <i class="fa fa-location-arrow fa-lg" style="margin: 2px; margin-right: 10px"></i><span>KK 19 av 9</span>
+              <dl>
+                 <dt></dt>
+                 <dd class="mb-ms-3"><i class="fa fa-phone fa-lg" style="margin: 2px; margin-right: 10px"></i><span> +(250) 780 560 138</span></dd>
+                 <dd><i class="fa fa-phone fa-lg" style="margin: 2px; margin-right: 10px"></i><span>+(250) 789 267 775</span></dd>
+                 <dd> <i class="fa fa-envelope fa-lg" style="margin: 2px; margin-right: 10px"></i>&nbsp; <a href="mailto:info@tike.co.rw">info@tike.co.rw</a></dd>
+              </dl>
+           </address>
+		</div>
+		<div class="col-md-6">
+			<h3 style="color: rgb(255, 167, 58)">Support</h3>
+			<ul class="list_1">
+				<li><a href="/support/">Terms &amp; Conditions</a></li>
+				<li><a href="/support/">FAQ</a></li>
+				<li><a href="/suppport/">Payment</a></li>
+                <li><a href="/support/">Refunds</a></li>
+				<li><a href="/support/">Help</a></li>
+			</ul>
+			<ul class="list_1">
+				<li><a href="http://tike.co.rw/#service">Services</a></li>
+				<li><a href="http://tike.co.rw/#about">About Us</a></li>
+				<li><a href="http://tike.co.rw/#contact">Contact Us</a></li>
+			</ul>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="clearfix"> </div>
+		</div>
+		<div class="footer_bottom">
+			<div class="copy">
+                <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+	        </div>
+	    </div>
+	</div>
+{% endblock %}

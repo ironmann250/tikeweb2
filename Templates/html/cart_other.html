@@ -1,0 +1,204 @@
+{% extends 'html/base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block content %}
+<main>
+   <div class="container">
+        <div class="row m-sm-0">
+             <div class="col-sm-12 col-md-6" style="padding: 2%; text-align: center;">
+                 <!-- Indicators -->
+                 <img class="img-thumbnail img-responsive" src="{{event.image.url}}" width="70%" height="auto">
+            </div>                    
+           
+            <div class="col-sm-12 col-md-6" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+            <div class="table-detail">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody class="table-hover cart">
+                            
+                            <tr>
+                                <td>Title</td>
+                                <td>{{event.title}}</td>
+                            </tr>
+                            <tr>
+                            <td>Date &amp; Venue</td>
+                            <td>{{event.date}}|{{event.Venue}}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{{event.description}}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Prices</td>
+                                <td>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>RWF</th>
+                                        <th>Including</th>
+                                        <th class="condition"> N.B</th> <!-- This should be trigger when there are conditions on a certain ticket for ex. when a ticket type is only for students.-->
+                                    
+                                    </tr>
+                                    {% for t in tickettypes%}
+                                    <tr>
+                                        <td>{{t.tike_type}}</td>
+                                        <td>{{t.amount}}</td>
+                                        <td>{{t.Content}}</td>
+                                    
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tags</td>
+                                <td>
+                                    {% for tag in event.tags.all %}
+                                    <span>#{{tag.word}}</span>
+                                    {% endfor %}
+                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    
+                    </table>
+                   
+                
+                
+                </div>
+                <a class="btn btn-success btn-lg" href="#review">View Comments</a>
+                {% if event.register_url %}
+                <a class="btn btn-default btn-lg" href="{{event.register_url}}">Register Now</a>
+
+                {% else %}
+                <a class="btn btn-default btn-lg" href="#purchase">Register Now</a>
+                {% endif %}
+                </div>
+            
+            </div>
+        </div>
+        {% if event.register_url %}
+
+        {% else %}
+       <div class="container">
+<br>
+       <h3 class="faq-title" id="purchase"> Register Now</h3>
+           <div class="form" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+                <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="First &amp; Last Name" value="" disabled>
+                        <p></p>                		</div>
+                    </div>
+                    <div class="form-group ">
+                		<label for="phone" class="col-sm-2 control-label">phone</label>
+                		<div class="col-sm-4">
+
+                			<input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone number" value="">
+                			<p></p>                		</div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nt" class="col-sm-2 control-label">#</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" id="number" name="number" placeholder="Number of tickets" value="">
+                                <p></p>                		
+                            </div>
+                            </div>
+                            <div class="form-group ">
+                                    <label for="tp" class="col-sm-2 control-label">Badge type</label>
+                                    <div class="col-sm-4">
+                                            <select class="form-control">
+                                                    {% for t in tickettypes %}
+                                        
+                                                    <option value="{{t.tike_type}}">{{t.tike_type}}</option>
+                                        
+                                                    {% endfor %}
+                                                </select>
+                                        <p></p>               
+                                             </div>
+                                    </div>
+                            <div class="col-sm-4 col-sm-offset-2" style="margin-top: 30px;">
+                                    <a class="btn btn-default btn-lg" href="#purchase">Register Now</a>
+                            </div>
+                                
+                            </div>
+           </div>
+           {% endif %}
+           <!--<div class="table-responsive">          
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Phone number</th>
+        <th>Email</th>
+        <th>Ticket Type</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        <form action="/buy/">
+      <tr>
+        <td><input type="number" placeholder=" Number of tickets" name="number"></td>
+        <td><input type="text" placeholder=" Name" name="Name"></td>
+        <td><input type="tel" placeholder=" Phone number" name="Phone Number"></td>
+        <td><input type="email" placeholder=" Email" name="email"></td>
+        <td><select>
+            {% for t in tickettypes %}
+
+            <option value="{{t.tike_type}}">{{t.tike_type}}</option>
+
+            {% endfor %}
+        </select>
+    </td>
+        
+      </tr>
+    </form>
+    </tbody>
+  </table>
+       </div>
+    <a class="btn btn-success btn-lg"> Buy Now</a>-->
+    </div>
+    <div class="container">
+    <div class="row m-auto-0">
+        <h3 class="faq-title" id="review"> Reviews</h3>
+        <div></div>
+        <div class="col-sm-12 col-md-8 col-md-offset-2" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);" >
+             <div id="disqus_thread"></div>
+            
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://tike.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        
+        </div>
+    
+    </div>
+    </div>
+        
+</main>
+
+<div class="footer_event_page">
+    <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+    <div class="container">
+        <br>
+        <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+    </div>
+{% endblock %}

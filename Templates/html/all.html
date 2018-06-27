@@ -1,0 +1,146 @@
+{% extends 'html/base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block content%}
+        
+<main style="background: #fff">
+<div class="navigation-list-left">
+    <!-- <table class="table table-bordered">
+    <tbody class="table-hover">
+        <tr>
+       
+        <td class="warning"><a href="#entertainment">Entertainment</a></td>
+        </tr>
+        <tr>
+       
+        <td><a href="#educational">Educational</a></td>
+        </tr>
+        </tbody>
+    
+    </table> -->
+    
+    </div>
+    
+    
+    
+<div class="navigation-list-right"> <!-- include a sort by date, price option here -->
+    <!-- <table class="table table-bordered">
+    <tbody class="table-hover">
+        <tr>
+            <th> Sort by </th>
+        
+        </tr>
+        <tr>
+       
+        <td class="warning"><a href="#date">Date</a></td>
+        </tr>
+        <tr>
+       
+        <td><a href="#price">Price</a></td>
+        </tr>
+        </tbody>
+    
+    </table> -->
+    </div>
+    
+     <div class="other-events mt-ms-3">
+      <h3 class="event_centering" id="entertainment"> Entertainment</h3>
+           
+                <div class="pub"></div>
+                
+                <div class="event-list" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+                        <div class="container">
+                <div class="row">
+                    {% for col in ecols %}
+                    <div class="col-sm-12 col-md-4">
+                        <div style="display:grid;">
+                            {% for event in col%}
+                            {% if event %}
+                            <div>
+                                    <div class="card">
+                                            <img class="card-img-top" src="{{event.image.url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
+                                            <div class="card-body">
+                                              <h5 class="card-title">{{event.title}}</h5>
+                                              <p class="card-text">{{event.venue}} | {{event.date}}</p>
+                                              <br>
+                                              <a href="/entertainment/{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                            </div>
+                                          </div>  
+                            </div>
+                            <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body sign" style="padding: 20px;">
+                            <img src="{{event.image.url}}" width="100%" height="auto">                  
+                            </div>
+                              </div>
+                              </div>
+                            </div>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+        </div>
+        </div>
+        </div>
+        
+    
+    <div class="other-events mt-sm-3">
+        <h3 class="event_centering" id="educational"> Educational</h3>
+            <div class="sketch">
+                <div class="pub"></div>
+                
+                <div class="event-list" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
+                        <div class="container">
+                <div class="row">
+                        {% for col in ocols %}
+                        <div class="col-sm-12 col-md-4">
+                            <div style="display:grid;">
+                                {% for event in col%}
+                                {% if event %}
+                                <div>
+                                        <div class="card">
+                                                <img class="card-img-top" src="{{event.image.url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">{{event.title}}</h5>
+                                                  <p class="card-text">{{event.venue}} | {{event.date}}</p>
+                                                  <br>
+                                                  <a href="/educational/{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                                </div>
+                                              </div>  
+                                </div>
+                                <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body sign" style="padding: 20px;">
+                                <img src="{{event.image.url}}" width="100%" height="auto">                  
+                                </div>
+                                  </div>
+                                  </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}  
+             
+        </div>
+        </div>
+    </div>
+         </div>
+            </div>    
+                <div class="pub"></div>
+
+</main>
+
+<div class="footer_event_page">
+    <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+    <div class="container">
+        <br>
+        <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+    </div>
+    
+    
+    {% endblock %}

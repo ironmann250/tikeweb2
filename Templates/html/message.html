@@ -1,0 +1,25 @@
+<!-- use this page to pass messages to user for ex: a thank you after purchasing a ticket or a message that the ticket failed -->
+{% extends 'html/base.html%}
+{% load static %}
+{% load staticfiles %}
+
+{% block content %}
+        
+<main>
+<div class="space_under_construction">
+      
+    <p style="color: #999; font-size: 40px; ">{{message}}</p>
+    <br>
+    <button class="btn btn-danger my-2 my-sm-0" type="submit">Back Home</button> 
+    </div>
+</main>
+
+<div class="footer_event_page">
+    <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+    <div class="container">
+        <br>
+        <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+    </div>
+
+</div>
+{% endblock %}

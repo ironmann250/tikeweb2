@@ -1,0 +1,152 @@
+
+{% load static %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <link rel="icon" type="image/png" href="{% static '/images/LOGO11.png'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap4.css'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap-theme.min.css'%}">
+        <link rel="stylesheet" href="{% static '/css/style.css'%}">
+        <link rel="stylesheet" href="{% static '/css/font-awesome.min.css'%}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <title>Tike - Get Tickets Online</title>
+    </head>
+    <body style="background-color: #f2f2f2;">
+
+<nav class="navbar navbar-expand-lg navbar-light nav-color mt-0 mb-sm-0">
+<a class="navbar-brand on_small" href="/">tike</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/all/">All events </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/support/">Ask for help</a>
+      </li>
+        
+    </ul>
+    <form class="form-inline my-2 my-sm-0 hide_on_small" action="/search/">
+        {% csrf_token %}
+      <input class="form-control mr-sm-2"id="search-form" type="search" placeholder="Which event on your mind?" aria-label="Search">
+      <button id="search-button" type="submit"><i class="fa fa-search fa-lg" style="margin: 2px; margin-right: 10px; color:#999 "></i></button> 
+    </form>
+      <span class="hide_on_small">
+      <a href="https://web.facebook.com/TIKELtd/"><i class="fa fa-facebook-official fa-lg" style="margin: 2px; margin-right: 10px; color: #3B5998;"></i></a> 
+      <a href="https://twitter.com/TikeLtd"><i class="fa fa-twitter-square fa-lg" style="margin: 2px; margin-right: 10px; color: #1DA1F2"></i></a> 
+      <a href="https://www.instagram.com/tikerwanda/?hl=en"><i class="fa fa-instagram fa-lg" style="margin: 2px; margin-right: 10px; color: #262626"></i></a> 
+      </span>
+      {% if account %}
+      <p>{{account.full_name}}</p>
+      {% else %}
+      <button class="btn btn-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#modal">Log In</button>
+      
+      {% endif %}
+      <div class="modal fade" id="modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-body">
+                    
+    <div>           
+        <br>
+        <p class="message_to_user">Log in to enjoy our services</p>
+        <br>
+        <form action="/login/" method="POST">
+         {% csrf_token %}
+         <br>
+    <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
+            <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+    </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control" aria-label="Password" placeholder="Password">
+        </div>
+        <br>
+        <a href="/signup/" class="message_to_user"> Is it your first time? Sign Up!</a>
+        <br><br>
+
+        <div>
+         <a class="btn btn-success my-2 my-sm-0" type="submit">Log In</a> 
+     </div>
+
+     </form>
+    
+</div> 
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-default my-2 my-sm-0" data-dismiss="modal">Cancel</button>
+                      </div>
+              
+              </div>
+          
+          </div>
+      
+      </div>
+  </div>
+</nav>
+   <div class="wrap-box"></div>        
+<main>
+<div class="space_under_construction">
+      <div class="row">
+          <div class="col-sm-12 col-md-6" style="background-color: #fff">
+                {% for event in events %}
+                            
+                <div class="card">
+                    <img class="card-img-top" src="{{event.image.url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
+                        <div class="card-body">
+                              <h5 class="card-title">{{event.title}}</h5>
+                              <p class="card-text">{{event.venue}} | {{event.date}}</p>
+                              <br>
+                              <a href="/support/" class="btn btn-success">Refund</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                            </div>
+                          </div> 
+                          <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body sign" style="padding: 20px;">
+                        <img src="{{event.image.url}}" width="100%" height="auto">                  
+                        </div>
+                          </div>
+                          </div>
+                        </div> 
+            
+            {% endfor %}
+          </div>
+          <div class="col-sm-12 col-md-4" style="background-color: #fff; margin: 5%; box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+                <div class="card">
+                        <div class="card-body" style="text-align:center;">
+                        <span class="card-title" style="font-size:40px;padding: 6px; background-color:#ffa73a;color: #fff; border-radius:46px;">RB</span>
+                        <hr>  
+                        <h3 class="card-text">{{account.full_name}}</h3>
+                    
+                          <br>
+                          <a href="/logout/" class="btn btn-success">Log out</a>
+                        </div>
+                      </div>
+
+          </div>  
+      </div>
+</main>
+
+<div class="footer_event_page">
+    <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+    <div class="container">
+        <br>
+        <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+    </div>
+
+</div>

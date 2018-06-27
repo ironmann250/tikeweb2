@@ -1,0 +1,190 @@
+{% load static %}
+{% load staticfiles %}
+<html>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <link rel="icon" type="image/png" href="{% static '/images/LOGO11.png'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap4.css'%}">
+        <link rel="stylesheet" href="{% static '/css/bootstrap-theme.min.css'%}">
+        <link rel="stylesheet" href="{% static '/css/style.css'%}">
+        <link rel="stylesheet" href="{% static '/css/font-awesome.min.css'%}">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <title>Tike - Sign Up</title>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light nav-color center mb-sm-0 mt-0 mb-sm-0">
+        <div class=" navbar-header">
+            <a class="navbar-brand on_small" href="/">tike</a>
+        </div>
+        
+    </nav>
+       <div class="wrap-box"></div>
+    <main>
+        
+        <div class="sign-container">
+        
+        <br>
+        <br>
+        <form action="/signup/" method="POST">
+                                  <p class="message_to_user"> Sign up to enjoy our services</p>
+                                  <br>
+                                  {% csrf_token %}
+                                  <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user fa-lg"></i></span>
+                                    <input type="text" class="form-control" name="name" placeholder="Full Name" aria-describedby="basic-addon1" required>
+                                </div>
+                                <br>
+                           <div class="input-group">
+                                   <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope fa-lg"></i></span>
+                                   <input type="email" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1" required>
+                               </div>
+                               <br>
+                               <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone fa-lg"></i></span>
+                                <input type="tel" class="form-control" placeholder="Phone" name="phone" aria-describedby="basic-addon1" required>
+                            </div>
+                               <br>
+                               <div class="input-group">
+                                   <span class="input-group-addon">$</span>
+                                   <input type="password" class="form-control" name="password" aria-label="Password" placeholder="Password" required>
+                               </div>
+                               <br>
+                                  <br>
+                                  {% if message %}
+                                  <p>{{messageSignUp}}</p>
+                                  {% endif %}
+                                 <div> <span><input type="radio" value="submit-check" name="register-check" required></span><a class="message_to_user" data-toggle="modal" data-target="#modal"> &nbsp; Read &amp; accept the terms and conditions that apply</a></div> 
+                                  <br><br>
+                                  
+                              <div>
+                                  <button class="btn btn-success my-2 my-sm-0" type="submit">Sign Up</button> 
+                              </div>
+                            </form> 
+            </div>
+        
+        <div class="modal fade" id="modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body sign" style="padding: 20px;">
+                          
+                          <h3>PURCHASING POLICY</h3>
+                          <br><br>
+     
+    <h2>1. ORDER CONFIRMATION</h2><br><br>
+                          <p>
+    After placing your order, an order confirmation message appears approving your order as a web top-up and then move to your account, start check-out and pay and your ticket is released in form of an SMS or email depending on your choice.<br>
+    In case you don’t get that order confirmation, contact our support team at support@tike.rw or call +250787316070
+                              </p><br><br>
+    <h2>2. SERVICES AND ORDER FEES</h2>
+                          <br><br>
+                          <p>
+                    Our system is free to use for ticket buyers no additional charges to the ticket net value, just place your order, confirm payment then your ticket is generated.
+                          </p>
+                          <br><br>
+    <h2>3. TICKET NUMBER LIMIT</h2>
+                          <br><br>
+                          <p>
+    A ticket number limit is a ticket number and usage control tool that allows a given user to buy a limited number of tickets of one event.
+    The maximum number of tickets one user may buy of the same event is 5 tickets in order to avoid ticket fraud and improper usage. One user means one account registered to our website. And for more tickets contact our support team to provide you other options at support@tike.rw or call +250787316070.
+                              </p><br><br>
+    <h2>4. TICKET TRANSFER</h2>
+                          <br><br>
+                          <p>
+    There might be many reasons why our customer may want to transfer his ticket to his friend or neighbor. The original ticket buyer must contact our support team at support@tike.rw or call +250787316070 and get into the procedures and the transfer is done freely.<br>
+    In that case, the QR code/PIN in the original ticket is canceled hence the ticket loses its validity and a new QR code/PIN is generated to the ticket recipient and the sender gets a confirmation notification approving the transfer success.<br>
+    The transfer will only occur in a 3 days calendar after the ticket was purchased and not before.
+    For the reselling, the old ticket buyer must wait 7 days before the event day to request a resale.
+                              </p>
+    
+                              <br><br>
+    <h2>REFUND POLICY</h2>
+                          <br><br>
+                          <p>
+    Our refund system is done in 3 days calendar following the cases listed below in this article.
+    As we do sell tickets on behalf of event organizers, teams, nightclubs, and venues, we are restricted from making a refund to the already bought ticket but, the following are possible cases for the refund.
+    FOR CANCELED OR RESCHEDULED EVENTS
+    When the event is rescheduled, our customers will get a notification informing them about the rescheduling in less than 72 hrs before the predicted event time and inform them about the new dates, hours and venue of the event and those who may want a refund will get it in less than a 3 day calendar (72 hrs) after the predicted event day.
+                              </p>
+                              <br><br>
+    <h2>FOR THE CANCELED EVENTS</h2>
+                          <br><br>
+                          <p>
+    For the canceled events, our customers are notified in less than 72 hrs before the predicted event day and all our customers who will have bought tickets will get their refund within 3 days following the official cancelation announcement of the event and they all get an email or SMS notification as the refund is made.
+    FOR THE REFUND, THE MONEY ACCOUNT (CREDENTIALS) USED AS PAYMENT MEAN TO THE TICKET PURCHASE IS THE ONE WHICH IS DEBITED AS A REFUND AND WITH NO CHARGES.<br>
+    This is to mean that if you used the mobile money payment, your mobile money account is the one to be debited in case of the refund or if you used bank cards hence the bank account used is the one to be debited and in case you don’t get a refund, feel free to contact our support team at support@tike.rw or call +25078316070
+     </p><br><br>
+    <h2>RESALE POLICY</h2>
+                          <br><br>
+                          <p>
+    In case you want to resale or put to AUCTION your ticket, contact our support team at support@tike.rw or call +25078316070 to assist you.
+    Resale will only occur 7 days before the event day and a service fee of 10% is issued to tike.rw and the customer will have rights to sell the ticket on the bid that pleases him/her depending to negotiations between the original ticket buyer and the new ticket buyer and after the agreement the original ticket buyer has to contact tike.rw for the ticket transfer to the new buyer.<br>
+    OUR RESALE POLICY IS DRIVEN BY UNIVERSAL AUCTION LAWS AND THIS IS TO MEAN THAT THE TIME THE TICKET ON AUCTION ISN’T BOUGHT, THE LOSS IS ON THE ORIGINAL TICKET BUYER.
+     </p><br><br>
+    <h2>PRIVACY POLICY</h2><br><br>
+                          <p>
+    This Privacy Policy applies to the sites and applications where it appears.
+    This Policy describes how we treat personal information we collect data both online and offline. This includes on our websites and in our applications. It is also included in our box offices or in phone or email interactions you have with us. <br><br>
+     
+    We collect information from and about you.<br><br>
+     
+    Contact information. For example, we might collect your name and street address. We might also collect your phone number or email.<br><br>
+     
+    Payment and billing information. For example, we collect your credit card number and zip code when you buy a ticket.<br><br>
+     
+    The information you post. For example, we collect information you post in a public space on our website. We also collect information you post on a third-party social media site.<br><br>
+     
+    Other information. If you use our website, we may collect information about the browser you're using. We might look at what site you came from, or what site you visit when you leave us. We may collect information about your location including your precise location. We may collect these using technologies such as GPS and Wi-Fi. If you use our mobile app, we may also access your device's location in the background. We may collect your device's unique identifier. We might also collect the type of mobile device you are using, or the version of the operating system your computer or device is running. We might look at how often you use the app and where you downloaded it.
+    We collect information in different ways.<br><br>
+    We collect information directly from you, for example, when you register for a promotion or buy tickets. We also collect information if you post a comment on our websites or ask us a question.<br><br>
+     
+    We collect information from you passively. We use tracking tools like browser cookies and web beacons. To learn more about these tools and to control them, please click here. We also collect information from our mobile apps.
+    We get information about you from third parties. For example, if you use an integrated social media feature on our websites or mobile applications. The third-party social media site will give us certain information about you. This could include your name and email address. Your activities on our sites and apps may be posted to the social media platforms.<br><br>
+    We use information as disclosed and described here.
+    We use the information to respond to your requests or questions. For example, we might use your information to confirm your registration for an event or contest. You may give us your friend's information, for example via our referral service to tell a friend about our website or to purchase a gift card. We will only use your friend's information to provide services you requested. Your friend may contact us at support@tike.rw to ask us to delete their information.<br><br>
+     
+    We use the information to improve our products and services. We might use your information to customize your experience with us. This may include displaying content based on your preferences.<br><br>
+     
+    We use the information to look at site trends and customer interests. We may use your information to make our website and products better. We may combine information we get from you with information about you we get from third parties.<br><br>
+     
+    We use information for security purposes. We may use the information to protect our company, our customers, or our websites.<br><br>
+     
+    We use information for marketing purposes. For example, we might send you information about special promotions or offers. We might also tell you about new features or products. These might be our own offers or products, or third-party offers or products we think you might find interesting. Or, for example, if you buy tickets from us we'll enroll you in our newsletter.<br><br>
+     
+    We may also use push notifications on our mobile apps. We may use push notifications and your location information on our mobile apps to send you alerts regarding local events.
+                              <br><br>
+                              </p>
+                              <br><br>
+    <h2>CANCELATION POLICY</h2>
+                          <p>
+    The ticket cancellation must be done by the buyer in less than 7 days before the event day so that his ticket might be put to AUCTION.<br><br>
+    The refund is deducted a 10% service fee.
+    The online order, as well as the phone orders, will be canceled if the customer doesn’t make the payment for the requested ticket in less than 30 minutes hence he/she may place a new order.
+     </p><br><br>
+     
+    <p>The above were approved this 21stth, April, 2018</p>
+    
+                          
+                      </div>
+                  </div>
+            </div>
+        </div>
+        
+        </main>
+    <div class="footer_event_page">
+        <!-- WHen Basketball and COmedy Knights will have confirmed their partnership we will redesign this page. --> 
+        <div class="container">
+            <br>
+            <p>Copyright © 2018 Tike Ltd. All Rights Reserved.</p>
+        </div>
+    
+    </div>
+        <script type="application/javascript" src="{% static '/js/jquery.js'%}"></script>
+        <script type="application/javascript" src="{% static '/js/bootstrap.min.js'%} "></script>
+        <script type="application/Javascript" src="{% static '/js/script.js'%}"></script>
+    </body>
+</html>

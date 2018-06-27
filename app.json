@@ -1,0 +1,8 @@
+{
+  "name": "tikeweb",
+  "description": "a tike web",
+  "image": "heroku/python",
+  "repository": "https://github.com/ironmann350/tikeweb.git",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}
