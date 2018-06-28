@@ -201,12 +201,13 @@ def home(request):
         col2.extend(events[nkeys:len(events)]) 
     '''
     col1,col2=get_cols(events)
+    '''
     if authentic == "0":
         name=0
 
     else:
         name=authentic.full_name
-
+    '''
     return render(request,'html/index.html',locals())
 def event(request,id):
     global views 
@@ -275,14 +276,12 @@ def all(request):
     ecols.append(ecol1);ecols.append(ecol2);ecols.append(ecol3)
     ocols.append(ocol1);ocols.append(ocol2);ocols.append(ocol3)
     '''
-
-
-
+    '''
     if authentic == "0":name=0
 
     else:
         name=authentic.full_name
-
+    '''
     return render(request,'html/all.html',locals())
 
 
@@ -300,6 +299,8 @@ def loginpg(request):
             if user:
                 login(request,user)
                 authentic= Account.objects.get(user=user)
+                if 'next' in request.GET.keys():#why doesn't it work?
+                    return HttpResponseRedirect(request.GET['next'])
             if views=="/":
                 return HttpResponseRedirect('/')
             else:
@@ -413,7 +414,8 @@ def dashboard(request): # profile management
     if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
-        tickets=Ticket.objects.filter(user_id=user.id)
+        #add stuff for paying not payed tickets
+        tickets=Ticket.objects.filter(user_id=user.id,payed=True)
         events=[]
         #find an efficient wway to do this
         for ticket in tickets:
