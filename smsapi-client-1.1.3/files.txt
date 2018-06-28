@@ -1,0 +1,1 @@
+c:\program files\anaconda2\lib\site-packages\smsapi_client-1.1.3-py2.7.egg
