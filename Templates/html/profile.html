@@ -102,34 +102,10 @@
 <main>
 <div class="space_under_construction">
       <div class="row">
-          <div class="col-sm-12 col-md-6" style="background-color: #fff">
-                {% for event in events %}
-                            
-                <div class="card">
-                    <img class="card-img-top" src="{{event.image.url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
-                        <div class="card-body">
-                              <h5 class="card-title">{{event.title}}</h5>
-                              <p class="card-text">{{event.venue}} | {{event.date}}</p>
-                              <br>
-                              <a href="/support/" class="btn btn-success">Refund</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
-                            </div>
-                          </div> 
-                          <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body sign" style="padding: 20px;">
-                        <img src="{{event.image.url}}" width="100%" height="auto">                  
-                        </div>
-                          </div>
-                          </div>
-                        </div> 
-            
-            {% endfor %}
-          </div>
-          <div class="col-sm-12 col-md-4" style="background-color: #fff; margin: 5%; box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+        <div class="col-sm-12 col-md-4" style="background-color: #fff; margin: 5%; box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
                 <div class="card">
                         <div class="card-body" style="text-align:center;">
-                        <span class="card-title" style="font-size:40px;padding: 6px; background-color:#ffa73a;color: #fff; border-radius:46px;">RB</span>
+                        <span class="card-title" style="font-size:40px;padding: 6px; background-color:#ffa73a;color: #fff; border-radius:46px;">{{abbr}}</span>
                         <hr>  
                         <h3 class="card-text">{{account.full_name}}</h3>
                     
@@ -138,6 +114,39 @@
                         </div>
                       </div>
 
+          </div>
+          <div class="" style="background-color: #fff">
+                {% for col in cols %}
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                            {% for event in col%}
+                            {%if event%}
+                            <div class='col-sm-12 col-md-6'>
+                                    <div class="card">
+                                            <img class="card-img-top" src="{{event.image_url}}" width="100%" height="auto" class="thumbnail"alt="Card image cap">
+                                            <div class="card-body">
+                                              <h5 class="card-title">{{event.title}}</h5>
+                                              <p class="card-text">{{event.venue}} | {{event.date}}</p>
+                                              <p class="card-text">PIN: <b>{{event.pin}}</b></p>
+                                              <br>
+                                              <a href="/nsupport/" class="btn btn-success">refund</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                            </div>
+                                          </div>  
+                            </div>
+                            <div class="modal fade" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body sign" style="padding: 20px;">
+                            <img src="{{event.image_url}}" width="100%" height="auto">                  
+                            </div>
+                              </div>
+                              </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
           </div>  
       </div>
 </main>
@@ -150,3 +159,6 @@
     </div>
 
 </div>
+<script type="application/javascript" src="{% static '/js/jquery.js'%}"></script>
+        <script type="application/javascript" src="{% static '/js/bootstrap.min.js'%} "></script>
+        <script type="application/Javascript" src="{% static '/js/script.js'%}"></script>

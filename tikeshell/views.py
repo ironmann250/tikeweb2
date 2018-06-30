@@ -21,6 +21,18 @@ global authentic#remove use django auth
 authentic="0"
 
 #utility functions
+class ticket_view(object):
+    '''
+    used encode a ticket data to be used in the profile template 
+    '''
+    def __init__(self):
+        self.id=None
+        self.title=None
+        self.venue=None
+        self.date=None
+        self.pin=None
+        self.image_url=None
+
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     """
     generate a 6 character pi that is unique in db/ticket
@@ -414,12 +426,26 @@ def dashboard(request): # profile management
     if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
+        abbr=''
+        for word in account.full_name.split(' '):
+            abbr+=word[0].upper()
         #add stuff for paying not payed tickets
         tickets=Ticket.objects.filter(user_id=user.id,payed=True)
         events=[]
         #find an efficient wway to do this
         for ticket in tickets:
-            events.append(Show.objects.get(id=ticket.event_id))
+            show=Show.objects.get(id=ticket.event_id)
+            event=ticket_view()
+            event.id=show.id
+            event.title=show.title
+            event.venue=show.venue
+            event.image_url=show.image.url
+            event.date=show.date
+            event.pin=ticket.pin
+            events.append(event)
+
+        cols=get_cols(events)
+        print cols
     return render(request,'html/profile.html',locals()) 
 '''
 def view_ticket(request,event_id):
@@ -533,7 +559,7 @@ def validate(request):
         api.set_params(ticket.full_name,event.title,tk_type.tike_type,event.date.strftime("%d-%b at %H:%M"),pin) 
         api.set_to(ticket.phone_number)
         api.set_from('Tike ltd') #Requested sender name
-        result = []#api.execute()
+        result = api.execute()
         for r in result:
             print (r.id, r.points, r.status)
         return HttpResponseRedirect("/all")#render thank you page
