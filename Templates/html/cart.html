@@ -205,11 +205,46 @@
     <a class="btn btn-success btn-lg"> Buy Now</a>-->
     </div>
     <div class="container">
+
     <div class="row m-auto-0">
-        <h3 class="faq-title" id="review"> Reviews</h3>
-        <div></div>
+    <h3 class="faq-title" id="review"> COMMENTS</h3>
+    <form class="col-md-8 col-md-offset-2 col-sm-12" role="form"  method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="message" class="col-sm-2 control-label">Message</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="3" name="message" required></textarea>
+                                <p></p>                         </div>
+                        </div>
+                        <div class="form-group">
+                             <label for="rating" class="col-sm-2 control-label">Rating to 10</label>
+                            <div class="col-sm-10">
+                                <div style='float:left;font-size:16'>
+                                <input style='font-size:16' name="rating" class='form-control' type='number' min='1' max='10' value='5'>
+                                </div>
+                                <div style='float:right;'>
+                                <input  id="submit" name="submit" type="submit" value="comment" class="btn btn-primary" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                            <p class="message_to_user" style="font-size:30px;">{{message}}</p>      
+                            </div>
+                        </div>
+                    </form>
+        
         <div class="col-sm-12 col-md-8 col-md-offset-2" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);" >
-             <div id="disqus_thread"></div>
+             <div id="disqus_thread">
+            {%for comment in comments%}
+            <div class="faq-set" > 
+             <p class="faq-answer">{{comment.text}} </p>
+            <p class="faq-question" style='font-size:16px'>by {{comment.user.full_name}} on {{comment.date}} rated show at {{comment.rating}}/10</p>
+            </div>
+            {%endfor%}
+             </div>
+            
+            
             
 <script>
 

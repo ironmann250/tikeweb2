@@ -156,7 +156,7 @@ class comment(models.Model):
     #idcomment= models.CharField(max_length= 10)
     text= models.CharField(max_length= 500)
     event= models.ForeignKey(Show, on_delete= models.CASCADE)
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    user = models.ForeignKey(Account, on_delete= models.CASCADE)
     date = models.DateTimeField()
     rating= models.IntegerField()
 

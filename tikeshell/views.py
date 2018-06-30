@@ -15,6 +15,7 @@ import smtplib
 from tikeshell.utils import directpaylib as dpapi
 from smsapi.client import SmsAPI
 from smsapi.responses import ApiError
+from django.shortcuts import get_object_or_404
 #Global values
 views='/'
 global authentic#remove use django auth
@@ -375,11 +376,18 @@ def signup(request):
         return render(request,'html/signup.html',{})
 @login_required
 def entertainment(request,event_id):
-    #TODO:autofill payment fields
+    #TODO:autofill payment fields[done]
+    previous_url = request.META.get('HTTP_REFERER')
     if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
-    event=Show.objects.get(id=event_id)
+        event=get_object_or_404(Show,id=event_id)
+    if 'message' in request.POST.keys():
+        rating=int(request.POST['rating'])
+        if rating >10: rating=10
+        new_comment=comment.objects.create(text=request.POST['message'],event=event,user=account,date=datetime.datetime.now(),rating=rating)
+        new_comment.save()    
+    comments=comment.objects.filter(event=event).order_by('-date')
     tickettypes= tickettype.objects.filter(event=event_id)
     return render(request,'html/cart.html',locals())
 @login_required
@@ -387,7 +395,7 @@ def educational(request, event_id):
     if request.user.is_authenticated:
         user=request.user
         account=Account.objects.get(user=user)
-    event=Other_events.objects.get(id=event_id)
+    event=get_object_or_404(Other_events,id=event_id)
     badgetypes= badgetype.objects.filter(event=event_id)
     return render(request,'html/cart_other.html', locals())
 #@login_required 
