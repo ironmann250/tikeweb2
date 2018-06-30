@@ -39,9 +39,9 @@
                                         <th class="condition"> N.B</th> <!-- This should be trigger when there are conditions on a certain ticket for ex. when a ticket type is only for students.-->
                                     
                                     </tr>
-                                    {% for t in tickettypes%}
+                                    {% for t in badgetypes%}
                                     <tr>
-                                        <td>{{t.tike_type}}</td>
+                                        <td>{{t.badge_type}}</td>
                                         <td>{{t.amount}}</td>
                                         <td>{{t.Content}}</td>
                                     
@@ -67,7 +67,7 @@
                 
                 
                 </div>
-                <a class="btn btn-success btn-lg" href="#review">View Comments</a>
+               <!-- <a class="btn btn-success btn-lg" href="#review">View Comments</a> -->
                 {% if event.register_url %}
                 <a class="btn btn-default btn-lg" href="{{event.register_url}}">Register Now</a>
 
@@ -78,6 +78,7 @@
             
             </div>
         </div>
+        <!--
         {% if event.register_url %}
 
         {% else %}
@@ -109,9 +110,9 @@
                                     <label for="tp" class="col-sm-2 control-label">Badge type</label>
                                     <div class="col-sm-4">
                                             <select class="form-control">
-                                                    {% for t in tickettypes %}
+                                                    {% for t in badgettypes %}
                                         
-                                                    <option value="{{t.tike_type}}">{{t.tike_type}}</option>
+                                                    <option value="{{t.tike_type}}">{{t.badg_type}}</option>
                                         
                                                     {% endfor %}
                                                 </select>
@@ -124,7 +125,7 @@
                                 
                             </div>
            </div>
-           {% endif %}
+           {% endif %} -->
            <!--<div class="table-responsive">          
   <table class="table">
     <thead>
@@ -160,6 +161,7 @@
        </div>
     <a class="btn btn-success btn-lg"> Buy Now</a>-->
     </div>
+    <!--
     <div class="container">
     <div class="row m-auto-0">
         <h3 class="faq-title" id="review"> Reviews</h3>
@@ -191,7 +193,7 @@ s.setAttribute('data-timestamp', +new Date());
         </div>
     
     </div>
-    </div>
+    </div> -->
         
 </main>
 
