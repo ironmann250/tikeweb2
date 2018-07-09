@@ -26,13 +26,7 @@ body a{
     background: #fff;
     
 }
-@media (max-width: 912px){
-.navbar-collapse.collapse {
-    display: block!important;
-    height: auto!important;
-    padding-bottom: 0;
-    overflow: visible!important;
-}
+@media (max-width: 712px){
 
 .col_1_of_3 {
   display: block;
@@ -259,7 +253,7 @@ nav div ul li a{
     justify-content: space-evenly;
 
 }
-@media only screen and (max-width: 712px){
+@media only screen and (max-width: 992px){
     .row-grid{
         display: grid;
         grid-template-columns: 100%;

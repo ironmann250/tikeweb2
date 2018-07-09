@@ -308,20 +308,21 @@ def loginpg(request):
         password=request.POST['password']
         authentic=0
         try:
-            user=authenticate(request,username=email,password=password)
-            if user:
+            user=authenticate(username=email,password=password)
+            authentic=Account.objects.get(user=user)# Do not complicate stuff
+            '''if user:
                 login(request,user)
                 authentic= Account.objects.get(user=user)
                 if 'next' in request.GET.keys():#why doesn't it work?
-                    return HttpResponseRedirect(request.GET['next'])
+                    return HttpResponseRedirect(request.GET['next'])'''
             if views=="/":
                 return HttpResponseRedirect('/')
-            else:
+            else:  
                 url=views
                 return HttpResponseRedirect(url)
         except Account.DoesNotExist:
-            message.error(request, 'Wrong email and password combination')
-            return HttpResponseRedirect('/login/')
+            messages="Wrong email and password combination"
+            return render(request,'html/login.html', locals())
             
     else:
         if views == "/signup/":
@@ -346,6 +347,10 @@ def search(request):
     #mix queuries and sort them 
             print (q,'\n',event_results,'\n')
             cols=get_cols(list(chain(list(event_results),list(other_events_results))))
+            print(cols)
+            if cols[0] == [None]:
+                cols=0
+                print(cols)
             return render(request,'html/search.html',locals())
         except KeyError:
             return HttpResponseRedirect('/')
@@ -453,7 +458,7 @@ def dashboard(request): # profile management
             events.append(event)
 
         cols=get_cols(events)
-        print cols
+        print(cols)
     return render(request,'html/profile.html',locals()) 
 '''
 def view_ticket(request,event_id):
@@ -503,7 +508,8 @@ def api_update_shows(request):#put a field of a password
 @login_required
 def pay_portal(request):
     previous_url = request.META.get('HTTP_REFERER')
-    print previous_url
+    print(previous_url)
+
     if request.user.is_authenticated:
         account=Account.objects.get(user=request.user)
         if ['name','phone'] not in request.POST.keys():
@@ -513,7 +519,7 @@ def pay_portal(request):
         else:
             name=request.POST['name']
             phone=request.POST['phone']
-            email='tike@gmail.com'#put company email in settings
+            email='tikerwanda@gmail.com'#put company email in settings
         try:
             if 'entertainment' in previous_url:
                 event=Show.objects.get(id=int(request.POST['event_id']))
@@ -540,9 +546,9 @@ def pay_portal(request):
                 pin=pin,full_name=name,tickettype_id=tk_type.id
                 ,phone_number=phone,user_id=account.id,token=res['token'])
             newticket.save()
-            print res
-            print request.META['HTTP_HOST']+'/validate?pin='+pin
-            print res['url']
+            print (res)
+            print (request.META['HTTP_HOST']+'/validate?pin='+pin)
+            print(res['url'])
             return HttpResponseRedirect(res['url'])
         except:
             return HttpResponseRedirect(previous_url)

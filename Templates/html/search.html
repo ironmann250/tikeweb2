@@ -13,6 +13,8 @@
                 <div class="event-list" style="margin-top: 2%;padding:3%; border-radius: 0 30px; box-shadow:0px 0px 3px 3px rgb(224, 223, 223);">
              <div class="container">
                  <div class="row">
+                     {% if cols %}
+                     
                     {% for col in cols %}
                     <div class="col-sm-12 col-md-4">
                         <div style="display:grid;">
@@ -38,16 +40,26 @@
                               </div>
                               </div>
                             </div>
+                            {% else %}
+                            <br>
+                            
                             {% endif %}
+                            
+
                             {% endfor %}
                         </div>
                     </div>
                     {% endfor %}
+                    {% else %}
+                    <div class="col-md-9">
+                        <p style="font:50px; color:#999;">No Matching result found...</p>
+                    </div>
+                    {% endif %}
                     <div class="col-md-3">
                         <h3>Advertise here!</h3>
                            <a><img src="{% static '/images/comedyknights.jpg'%}" width="100%" height="auto"></a>
-                    </div
-        </div>
+                    </div>
+                    </div>
                  </div>
                  </div>
 </main>
