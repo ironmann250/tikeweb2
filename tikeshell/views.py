@@ -421,7 +421,7 @@ def support(request):
             server.starttls()
             server.login("tikerwanda@gmail.com", "kntberwa2017")
             msg = "Name:{{name}}/nEmail:{{email}}/n Message:{{message}}".format(name,email,message)
-            server.sendmail("tikerwanda@gmail.com", "info@tike.co.rw", msg)
+            server.sendmail("tikerwanda@gmail.com", "berwa05@gmail.com", msg)
             server.quit()
             return render(request,'html/help.html',{'message':'Your message was successful sent'},locals())
 
