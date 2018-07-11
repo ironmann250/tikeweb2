@@ -25,7 +25,7 @@ SECRET_KEY = 'k+w&p3v=s4@(7z95%vim=bae)0(#zlb*q-xr5wo+*iuo+sis06'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['app.tike.co.rw','192.168.43.76','192.168.43.208','0.0.0.0','localhost','127.0.0.1','tikeweb.herokuapp.com']
+ALLOWED_HOSTS = ['web.tike.rw','app.tike.co.rw','192.168.43.76','192.168.43.208','0.0.0.0','localhost','127.0.0.1','tikeweb.herokuapp.com']
 
 
 # Application definition
