@@ -311,16 +311,22 @@ def loginpg(request):
         try:
             user=authenticate(username=email,password=password)
             authentic=Account.objects.get(user=user)# Do not complicate stuff
-            '''if user:
+            if user:
                 login(request,user)
                 authentic= Account.objects.get(user=user)
                 if 'next' in request.GET.keys():#why doesn't it work?
-                    return HttpResponseRedirect(request.GET['next'])'''
+                    return HttpResponseRedirect(request.GET['next'])
+                else:
+                    return HttpResponseRedirect('/')
+            else:
+                return HttpResponseRedirect('/login')
+            '''
             if views=="/":
                 return HttpResponseRedirect('/')
             else:  
                 url=views
                 return HttpResponseRedirect(url)
+                '''
         except Account.DoesNotExist:
             messages="Wrong email and password combination"
             return render(request,'html/login.html', locals())
