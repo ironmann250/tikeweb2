@@ -24,10 +24,15 @@ class Picture(models.Model): #add the thumb stuff::: done
     def __str__(self):
         return self.alt_text
 
+#no use now
+'''
 class MainPicture(models.Model):
+    pass
+
     mainpicture= models.ManyToManyField(Picture)
     def __str__(self):
         return self.id
+    '''
 class Category(models.Model):
     category_title=models.CharField(max_length=100)#changed to this dumb name for the sake of a better representation in the admin filters
     description=models.TextField()
