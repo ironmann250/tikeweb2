@@ -77,8 +77,10 @@ WSGI_APPLICATION = 'tikeweb.wsgi.application'
 
 if os.environ.get('PRODUCTION') != None:
     import dj_database_url
-    db_from_env = dj_database_url.config(conn_max_age=500, require_ssl=True)
-    DATABASES['default'].update(db_from_env)
+    import dj_database_url
+    DATABASES ={}
+    DATABASES['default'] = dj_database_url.config()
+
 else: 
     DATABASES = {
         'default': {
@@ -118,6 +120,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Static files (CSS, JavaScript, Images)
