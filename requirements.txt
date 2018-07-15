@@ -4,7 +4,7 @@ gunicorn==19.6.0
 whitenoise==2.0.6
 qrcode==5.3
 mailer==0.8.1
-psycopg2==2.6.1
+psycopg2==1.6.1
 south==1.0.2
 pillow==2.5.1
 requests==2.18.4
