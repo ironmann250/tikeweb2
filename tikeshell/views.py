@@ -7,7 +7,7 @@ from django.http import  HttpResponse,JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate,login
 from pprint import pprint as pp
 from itertools import chain
-import time,json,string,random
+import time,json,string,random,os
 from io import StringIO
 from tikeshell.utils import qrcodeGenerator
 from django.contrib import messages
@@ -147,7 +147,8 @@ def render_qrcode(request,text): #this is considered a helper function not reall
 def home(request):
     global views
     global authentic
-    views='/'
+    env=os.environ.get('PRODUCTION')
+    views=env
     all_events={}
     primary_event= Show.objects.get(level__level="Main")
     all_events= Show.objects.filter(level__level="Important")
