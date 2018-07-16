@@ -410,6 +410,29 @@ def educational(request, event_id):
     event=get_object_or_404(Other_events,id=event_id)
     badgetypes= badgetype.objects.filter(event=event_id)
     return render(request,'html/cart_other.html', locals())
+@login_required
+def reset(request):
+    if request.user.is_authenticated:
+        user=request.user
+        account=Account.objects.get(user=user)
+        name=account.name
+        email=account.email    
+    try:
+        password= id_generator()
+        user.set_password(password)
+        user.save()
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login("tikerwanda@gmail.com", "kntberwa2017")
+        msg = "Dear {{name}},/n You password has been successfully reset./n Your new password is {{password}}./n/n".format(name,password)
+        server.sendmail("tikerwanda@gmail.com",email, msg)
+        server.quit()
+        return render(request,'html/login.html',{'messages':'Check your email for a new password.'},locals())
+
+    except KeyError:
+        return render(request,'html/login.html',{'messages':'You password was NOT resets./n Please try again!'},locals())
+
+    
 #@login_required 
 
 def support(request):
@@ -428,7 +451,7 @@ def support(request):
             server.starttls()
             server.login("tikerwanda@gmail.com", "kntberwa2017")
             msg = "Name:{{name}}/nEmail:{{email}}/n Message:{{message}}".format(name,email,message)
-            server.sendmail("tikerwanda@gmail.com", "berwa05@gmail.com", msg)
+            server.sendmail("tikerwanda@gmail.com", "support@tike.rw", msg)
             server.quit()
             return render(request,'html/help.html',{'message':'Your message was successful sent'},locals())
 
