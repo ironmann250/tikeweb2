@@ -12,17 +12,17 @@ class RequestError(Exception):
 	def __str__(self):
 		return repr(self.value)
 
-req_url=' https://secure1.sandbox.directpay.online/API/v6/'
-red_url='https://secure1.sandbox.directpay.online/payv2.php?ID='
-dt={'company_token': '9F416C11-127B-4DE2-AC7F-D5710E4C5E0A',
+req_url='https://secure.3gdirectpay.com/API/v6/'
+red_url='https://secure.3gdirectpay.com/pay.asp?ID='
+dt={'company_token': '224F472D-2E3A-4355-9D99-48A0533D9E72',
     'price': '0', 'details': 'test product',
     'redirect_url': 'www.bing.com',
-    'date': '2018/06/14 16:30', 'type': '3854',
+    'date': '2018/06/14 16:30', 'type': '20173',
     'email':'test@t.com','fname':'test','lname':'johnny',
     'address':'kigali rwanda kk45','city':'kigali',
     'country':'rw','phone':'78016203','zip':'56001'} #test data for create token
 
-ddt={'company_token':'9F416C11-127B-4DE2-AC7F-D5710E4C5E0A',
+ddt={'company_token':'224F472D-2E3A-4355-9D99-48A0533D9E72',
      'transaction_token':'910285C5-15ED-4755-875E-59B820AC0454'} #test dataa for cancel token and verify token
 #company token: 9F416C11-127B-4DE2-AC7F-D5710E4C5E0A
 #3854,5525
