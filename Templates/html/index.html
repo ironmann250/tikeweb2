@@ -46,10 +46,10 @@
                                               <h5 class="card-title">{{event.title}}</h5>
                                               <p class="card-text">{{event.venue}} | {{event.date}}</p>
                                               <br>
-                                              <a href="{{event.url}}{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                              <a href="{{event.url}}{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.image.url}}">View Poster</button>
                                             </div>
                                           </div> 
-                                          <div class="modal" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                          <div class="modal" id="{{event.image.url}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-body sign" style="padding: 20px;">
@@ -72,10 +72,10 @@
                                                   <h5 class="card-title">{{event.title}}</h5>
                                                   <p class="card-text">{{event.venue}} | {{event.date}}</p>
                                                   <br>
-                                                  <a href="{{event.url}}{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.id}}">View Poster</button>
+                                                  <a href="{{event.url}}{{event.id}}/" class="btn btn-success">Get a ticket</a> <button class="btn btn-danger my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#{{event.title}}">View Poster</button>
                                                 </div>
                                               </div> 
-                                              <div class="modal" id="{{event.id}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
+                                              <div class="modal" id="{{event.title}}" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-body sign" style="padding: 20px;">
