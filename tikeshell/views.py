@@ -7,7 +7,7 @@ from django.http import  HttpResponse,JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate,login
 from pprint import pprint as pp
 from itertools import chain
-import time,json,string,random
+import time,json,string,random,os
 from io import StringIO
 from tikeshell.utils import qrcodeGenerator
 from django.contrib import messages
@@ -147,7 +147,8 @@ def render_qrcode(request,text): #this is considered a helper function not reall
 def home(request):
     global views
     global authentic
-    views='/'
+    env=os.environ.get('PRODUCTION')
+    views=env
     all_events={}
     primary_event= Show.objects.get(level__level="Main")
     all_events= Show.objects.filter(level__level="Important")
@@ -310,16 +311,22 @@ def loginpg(request):
         try:
             user=authenticate(username=email,password=password)
             authentic=Account.objects.get(user=user)# Do not complicate stuff
-            '''if user:
+            if user:
                 login(request,user)
                 authentic= Account.objects.get(user=user)
                 if 'next' in request.GET.keys():#why doesn't it work?
-                    return HttpResponseRedirect(request.GET['next'])'''
+                    return HttpResponseRedirect(request.GET['next'])
+                else:
+                    return HttpResponseRedirect('/')
+            else:
+                return HttpResponseRedirect('/login')
+            '''
             if views=="/":
                 return HttpResponseRedirect('/')
             else:  
                 url=views
                 return HttpResponseRedirect(url)
+                '''
         except Account.DoesNotExist:
             messages="Wrong email and password combination"
             return render(request,'html/login.html', locals())
@@ -538,6 +545,7 @@ def pay_portal(request):
             dpapi.dt['email']=email
             dpapi.dt['phone']=phone
             dpapi.dt['price']=price
+            dpapi.dt['details']=str(tk_type.tike_type)+' '+str(event.title)+' ticket'
             if request.META['HTTP_HOST'] == None:
                 return HttpResponseRedirect(previous_url)
             dpapi.dt['redirect-url']=request.META['HTTP_HOST']+'/validate?pin='+pin
