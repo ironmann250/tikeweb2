@@ -545,6 +545,7 @@ def pay_portal(request):
             dpapi.dt['email']=email
             dpapi.dt['phone']=phone
             dpapi.dt['price']=price
+            dpapi.dt['details']=str(tk_type.tike_type)+' '+str(event.title)+' ticket'
             if request.META['HTTP_HOST'] == None:
                 return HttpResponseRedirect(previous_url)
             dpapi.dt['redirect-url']=request.META['HTTP_HOST']+'/validate?pin='+pin
