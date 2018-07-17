@@ -154,7 +154,12 @@ def home(request):
     all_events= Show.objects.filter(level__level="Important")
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None 
+    
     for event in all_events:
         if event.level.level == "Main":
             primary_event=event
@@ -186,42 +191,8 @@ def home(request):
         other_events=0
     else:
         other_events_all=all_other_events
-        '''list_other_event_child=0
-        list_other_event_child={}
-        while n_el1 > 2:
-            other_events={}
-            other_event_child.append(all_other_events[0:3])
-            other_events.append(list_other_event_child)
-            all_other_events[0:3].remove()
-            
-            n_el1= len(all_other_events)
-            if n_el1 <= 2:
-                list_other_event_child={}
-                list_other_event_child.append(all_other_events)'''
     events=list(chain(all_events, all_other_events))
-    '''
-    nkeys= int(len(events)/2)
-    print(nkeys)
-    remainder= len(events) % 2
-    col1=list()
-    col2=list()
-    if remainder==0:
-        col1.extend(events[0:nkeys])
-        col2.extend(events[nkeys+1:len(events)])
-
-    elif remainder==1:
-        nkeys +=1
-        col1.extend(events[0:nkeys])
-        col2.extend(events[nkeys:len(events)]) 
-    '''
     col1,col2=get_cols(events)
-    '''
-    if authentic == "0":
-        name=0
-
-    else:
-        name=authentic.full_name
-    '''
     return render(request,'html/index.html',locals())
 def event(request,id):
     global views 
@@ -232,7 +203,11 @@ def all(request):
     #order by likes or such thin
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
     global views
     global authentic
     views="/all/"
@@ -243,59 +218,6 @@ def all(request):
     print (get_cols(all_events,3))
     ecols=get_cols(all_events,3)
     ocols=get_cols(all_other_events,3)
-    '''
-    ekeys=int(len(all_events)/3)
-    eremainder=len(all_events) % 3
-    okeys=int(len(all_other_events)/3)
-    oremainder=len(all_other_events) % 3
-    ecol1=list();ecol2=list();ecol3=list()
-    ocol1=list();ocol2=list();ocol3=list()
-    if eremainder==0:
-        ecol1.extend(all_events[0:ekeys])
-        ecol2.extend(all_events[ekeys:ekeys*2])
-        ecol3.extend(all_events[ekeys*2: len(all_events)])
-
-
-    elif eremainder==1:
-        init=ekeys+1
-        ecol1.extend(all_events[0:init])
-        ecol2.extend(all_events[init:ekeys*2])
-        ecol3.extend(all_events[ekeys*2: len(all_events)])
-
-    elif eremainder==2:
-        init=ekeys+1
-        ecol1.extend(all_events[0:init])
-        ecol2.extend(all_events[init:ekeys*2+2])
-        ecol3.extend(all_events[ekeys*2+2: len(all_events)])
-    
-    if oremainder==0:
-        ocol1.extend(all_other_events[0:okeys])
-        ocol2.extend(all_other_events[okeys:okeys*2])
-        ocol3.extend(all_other_events[okeys*2: len(all_events)])
-
-
-    elif oremainder==1:
-        init=okeys+1
-        ocol1.extend(all_other_events[0:init])
-        ocol2.extend(all_other_events[init:okeys*2])
-        ocol3.extend(all_other_events[okeys*2: len(all_events)])
-
-    elif oremainder==2:
-        init=okeys+1
-        ocol1.extend(all_other_events[0:init])
-        ocol2.extend(all_other_events[init:okeys*2+2])
-        ocol3.extend(all_other_events[okeys*2+2: len(all_events)])
-
-    ecols=list(); ocols=list()
-    ecols.append(ecol1);ecols.append(ecol2);ecols.append(ecol3)
-    ocols.append(ocol1);ocols.append(ocol2);ocols.append(ocol3)
-    '''
-    '''
-    if authentic == "0":name=0
-
-    else:
-        name=authentic.full_name
-    '''
     return render(request,'html/all.html',locals())
 
 
@@ -341,7 +263,11 @@ def loginpg(request):
 def search(request):
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
     if request.method=='GET':
         try:
             q=request.GET['q']
@@ -392,7 +318,11 @@ def entertainment(request,event_id):
     previous_url = request.META.get('HTTP_REFERER')
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
         event=get_object_or_404(Show,id=event_id)
     if 'message' in request.POST.keys():
         rating=int(request.POST['rating'])
@@ -406,40 +336,53 @@ def entertainment(request,event_id):
 def educational(request, event_id):
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
     event=get_object_or_404(Other_events,id=event_id)
     badgetypes= badgetype.objects.filter(event=event_id)
     return render(request,'html/cart_other.html', locals())
 @login_required
 def reset(request):
-    if request.user.is_authenticated:
-        user=request.user
-        account=Account.objects.get(user=user)
-        name=account.name
-        email=account.email    
-    try:
-        password= id_generator()
-        user.set_password(password)
-        user.save()
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login("tikerwanda@gmail.com", "kntberwa2017")
-        msg = "Dear {{name}},/n You password has been successfully reset./n Your new password is {{password}}./n/n".format(name,password)
-        server.sendmail("tikerwanda@gmail.com",email, msg)
-        server.quit()
-        return render(request,'html/login.html',{'messages':'Check your email for a new password.'},locals())
+    if request.method== 'POST':
+        try:
+            email=request.POST['email']
+            try:
+                account=Account.objects.get(email=email)
+                name=account.full_name
+                user=account.user
+                password= id_generator()
+                user.set_password(password)
+                user.save()
+                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server.starttls()
+                server.login("tikerwanda@gmail.com", "kntberwa2017")
+                msg = "Subject: Reset Email\n"+"Dear {},\nYou password has been successfully reset.\nYour new password is {}.\n\n Enjoy our services,\nTike Support Team".format(name,password)
+                server.sendmail("tikerwanda@gmail.com",email, msg)
+                server.quit()
+                return render(request,'html/login.html',{'messages':'Check your email for a new password.'},locals())
 
-    except KeyError:
-        return render(request,'html/login.html',{'messages':'You password was NOT resets./n Please try again!'},locals())
+            except Account.DoesNotExist:
+                return render(request,'html/reset.html',{'messages':'This email is not assigned to any account. Please try again.'},locals())
 
-    
+        except KeyError:
+            return render(request,'html/reset.html',{'messages':'Your operation was not successful. Please try again.'},locals())
+
+    else:
+        return render(request, 'html/reset.html', locals())
 #@login_required 
 
 def support(request):
     #an html page explaining the process of buying a ticket & which may also include a way to ask for help
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
     if request.method=='POST':
         try:
             email= request.POST['email']
@@ -468,7 +411,11 @@ def dashboard(request): # profile management
     #similar_events=get_similar_events(event,6) #PUBLICITY_EVENTS
     if request.user.is_authenticated:
         user=request.user
-        account=Account.objects.get(user=user)
+        try:
+            account=Account.objects.get(user=user)
+        
+        except Account.DoesNotExist:
+            user=None
         abbr=''
         for word in account.full_name.split(' '):
             abbr+=word[0].upper()
@@ -541,7 +488,11 @@ def pay_portal(request):
     print(previous_url)
 
     if request.user.is_authenticated:
-        account=Account.objects.get(user=request.user)
+        try:
+            account=Account.objects.get(user=request.user)
+        
+        except Account.DoesNotExist:
+            user=None
         if ['name','phone'] not in request.POST.keys():
             name=account.full_name
             phone=account.phone_number
