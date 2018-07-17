@@ -72,7 +72,7 @@ class Other_events(models.Model):
     register_url= models.CharField(max_length=100, null=True)
     free=models.BooleanField(default=False)
     tags=models.ManyToManyField(Keyword)
-    uniqint=models.IntegerField(default=random_number)
+    #uniqint=models.IntegerField(default=random_number)
     level=models.ForeignKey(levels, on_delete=models.CASCADE)
     url=models.CharField(max_length=100, default="/educational/")
     if free:
@@ -94,7 +94,7 @@ class Show(models.Model):
     venue= models.CharField(max_length=50)
     tickets_no = models.IntegerField( default=0)
     tags=models.ManyToManyField(Keyword)
-    uniqint=models.IntegerField(default=random_number)
+    #uniqint=models.IntegerField(default=random_number)
     level=models.ForeignKey(levels, on_delete=models.CASCADE)
     url=models.CharField(max_length=30, default="/entertainment/")#not needed we can know it trough other differences
     '''
