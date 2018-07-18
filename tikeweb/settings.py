@@ -76,8 +76,7 @@ WSGI_APPLICATION = 'tikeweb.wsgi.application'
 
 production=True
 
-if production==True:#os.environ.get('PRODUCTION') != None: #HHHAlaugh at me buh this env thing is killin me
-    import dj_database_url
+if True:#os.environ.get('PRODUCTION') != None: #HHHAlaugh at me buh this env thing is killin me
     import dj_database_url
     DATABASES ={}
     DATABASES['default'] = dj_database_url.config()
