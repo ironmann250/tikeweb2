@@ -88,7 +88,7 @@ else:
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
+c=0#nothing
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
