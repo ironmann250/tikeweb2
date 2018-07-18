@@ -74,8 +74,9 @@ WSGI_APPLICATION = 'tikeweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+production=True
 
-if os.environ.get('PRODUCTION') != None:
+if production==True:#os.environ.get('PRODUCTION') != None: #HHHAlaugh at me buh this env thing is killin me
     import dj_database_url
     import dj_database_url
     DATABASES ={}
