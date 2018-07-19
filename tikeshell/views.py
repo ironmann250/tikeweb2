@@ -561,3 +561,13 @@ def validate(request):
         return HttpResponseRedirect("/all")#render thank you page
     except:
         return HttpResponseRedirect("/")
+
+def test(request,val):
+    #any test wrtie them here
+    if val=='appscanjson':
+        #test/appscanjson?pin=12er34
+        if 'pin' in request.GET.keys():
+            result={'name':'test name','paid':True,'event':'test event','date':'0000-00-00 00:00','scanned':True}
+            return JsonResponse(result)
+        
+
