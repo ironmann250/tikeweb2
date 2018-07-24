@@ -312,7 +312,7 @@ def signup(request):
             return render(request,'html/signup.html',{'message':'You did not successful sign up. Please use another email.'})
     else:
         return render(request,'html/signup.html',{})
-@login_required
+
 def entertainment(request,event_id):
     #TODO:autofill payment fields[done]
     previous_url = request.META.get('HTTP_REFERER')
@@ -332,7 +332,7 @@ def entertainment(request,event_id):
     comments=comment.objects.filter(event=event).order_by('-date')
     tickettypes= tickettype.objects.filter(event=event_id)
     return render(request,'html/cart.html',locals())
-@login_required
+
 def educational(request, event_id):
     if request.user.is_authenticated:
         user=request.user
@@ -344,7 +344,7 @@ def educational(request, event_id):
     event=get_object_or_404(Other_events,id=event_id)
     badgetypes= badgetype.objects.filter(event=event_id)
     return render(request,'html/cart_other.html', locals())
-@login_required
+
 def reset(request):
     if request.method== 'POST':
         try:
@@ -482,7 +482,7 @@ def api_update_shows(request):#put a field of a password
 #	return render(request,'html/sitemap.html')
 
 #def purchase(request):
-@login_required
+
 def pay_portal(request):
     previous_url = request.META.get('HTTP_REFERER')
     print(previous_url)
