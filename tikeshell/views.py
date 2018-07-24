@@ -148,7 +148,7 @@ def home(request):
     global views
     global authentic
     env=os.environ.get('PRODUCTION')
-    views=env
+    views='/'
     all_events={}
     primary_event= Show.objects.get(level__level="Main")
     all_events= Show.objects.filter(level__level="Important")
