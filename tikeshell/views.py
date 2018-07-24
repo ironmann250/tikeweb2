@@ -323,7 +323,7 @@ def entertainment(request,event_id):
         
         except Account.DoesNotExist:
             user=None
-        event=get_object_or_404(Show,id=event_id)
+    event=get_object_or_404(Show,id=event_id)
     if 'message' in request.POST.keys():
         rating=int(request.POST['rating'])
         if rating >10: rating=10
