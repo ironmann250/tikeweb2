@@ -482,7 +482,7 @@ def api_update_shows(request):#put a field of a password
 #	return render(request,'html/sitemap.html')
 
 #def purchase(request):
-
+@login_required
 def pay_portal(request):
     previous_url = request.META.get('HTTP_REFERER')
     print(previous_url)
