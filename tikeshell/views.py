@@ -383,6 +383,7 @@ def support(request):
         
         except Account.DoesNotExist:
             user=None
+            account=None
     if request.method=='POST':
         try:
             email= request.POST['email']
