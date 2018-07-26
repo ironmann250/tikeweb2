@@ -579,6 +579,7 @@ def download_event_tickets(request,id):
 
     #TODO: IMPLEMENT A BETTER ONE WITHOUT LOOPS
     raw={}
+    c=0
     raw['timestamp']=datetime.datetime.now()
     raw['event']=Show.objects.get(id=id).title
     tmp={}
