@@ -20,7 +20,7 @@ from django.shortcuts import get_object_or_404
 views='/'
 global authentic#remove use django auth
 authentic="0"
-
+c=0
 #utility functions
 class ticket_view(object):
     '''
