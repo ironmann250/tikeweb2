@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^dashboard/',tikeshell_views.dashboard),
     url(r'^test/(?P<val>.*)',tikeshell_views.test),
     url(r'^get_qrcode/(?P<text>.*)',tikeshell_views.render_qrcode),
+    url(r'^get_tickets/(?P<id>.*)',tikeshell_views.download_event_tickets),
     #security vurnel'ability here this can act as truthness function[explanation later]'
 ]
 urlpatterns=urlpatterns+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

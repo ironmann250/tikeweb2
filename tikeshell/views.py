@@ -7,7 +7,7 @@ from django.http import  HttpResponse,JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate,login
 from pprint import pprint as pp
 from itertools import chain
-import time,json,string,random,os
+import time,json,string,random,os,datetime
 from io import StringIO
 from tikeshell.utils import qrcodeGenerator
 from django.contrib import messages
@@ -570,4 +570,21 @@ def test(request,val):
             result={'name':'test name','paid':True,'event':'test event','date':'0000-00-00 00:00','scanned':True}
             return JsonResponse(result)
         
+def download_event_tickets(request,id):
+    #add authentication
+    if 'timestamp' in request.GET.keys():
+        pass #TODO: process the time stamp
+    else:
+        timestamp=0
+
+    #TODO: IMPLEMENT A BETTER ONE WITHOUT LOOPS
+    raw={}
+    raw['timestamp']=datetime.datetime.now()
+    tmp={}
+    tickets=Ticket.objects.filter(event_id=id)
+    for ticket in tickets:
+        tmp[ticket.pin]={'name':ticket.full_name,'scanned':ticket.used,
+        'date':ticket.date}
+    raw['tickets']=tmp
+    return JsonResponse(raw)
 
