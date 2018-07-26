@@ -65,7 +65,7 @@ class Admin:
 
 class Other_events(models.Model):
     title=models.CharField(max_length=100)
-    description=models.CharField(max_length=300)
+    description = models.TextField()
     Venue= models.CharField(max_length=100)
     date = models.DateTimeField(default=today())
     image=models.ImageField(upload_to="event")
