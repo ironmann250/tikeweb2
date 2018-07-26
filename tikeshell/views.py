@@ -593,6 +593,6 @@ def get_event_ids(request,n=10):
     result={}
     for event in events[:n]:
         result[event.title]=event.id
-    return JsonResponse(raw)
+    return JsonResponse(result)
 
 
