@@ -580,8 +580,9 @@ def download_event_tickets(request,id):
     #TODO: IMPLEMENT A BETTER ONE WITHOUT LOOPS
     raw={}
     raw['timestamp']=datetime.datetime.now()
+    raw['event']=Show.objects.get(id=id).title
     tmp={}
-    tickets=Ticket.objects.filter(event_id=id,payed=True)
+    tickets=Ticket.objects.filter(event_id=id)
     for ticket in tickets:
         tmp[ticket.pin]={'name':ticket.full_name,'scanned':ticket.used,
         'date':ticket.date}
