@@ -581,7 +581,7 @@ def download_event_tickets(request,id):
     raw={}
     raw['timestamp']=datetime.datetime.now()
     tmp={}
-    tickets=Ticket.objects.filter(event_id=id)
+    tickets=Ticket.objects.filter(event_id=id,payed=True)
     for ticket in tickets:
         tmp[ticket.pin]={'name':ticket.full_name,'scanned':ticket.used,
         'date':ticket.date}
