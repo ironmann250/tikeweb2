@@ -580,10 +580,13 @@ def download_event_tickets(request,id):
     #TODO: IMPLEMENT A BETTER ONE WITHOUT LOOPS
     raw={}
     c=0
+    onsite_json=requests.get('onsite.tike.rw/get_events/'+str(id)).text
+    #error handling here
     raw['timestamp']=datetime.datetime.now()
-    raw['event']=Show.objects.get(id=id).title
+    raw['event']=Show.objects.get(id=id).
+    #err handling here
     tmp={}
-    tickets=Ticket.objects.filter(event_id=id)
+    tickets=Ticket.objects.filter(event_id=id,paid=True)
     for ticket in tickets:
         tmp[ticket.pin]={'name':ticket.full_name,'scanned':ticket.used,
         'date':ticket.date}
