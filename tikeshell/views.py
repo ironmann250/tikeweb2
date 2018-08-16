@@ -495,7 +495,7 @@ def pay_portal(request):
             user=None
         if ['name','phone'] not in request.POST.keys():
             name=account.full_name
-            phone=account.phone_number
+            phone=str(account.phone_number)
             email=account.email
         else:
             name=request.POST['name']
@@ -553,7 +553,10 @@ def validate(request):
         api.service('sms').action('send')
         api.set_content('[%1%] this ticket is for [%2%] in [%3%] at [%4%] your pin is [%5%],Help Call: 07893637884 Thank you! TIKE.')
         api.set_params(ticket.full_name,event.title,tk_type.tike_type,event.date.strftime("%d-%b at %H:%M"),pin) 
-        api.set_to(ticket.phone_number)
+        phone=str(ticket.phone_number)
+        if phone[:4] != '+250':
+            phone=phone+'+250'
+        api.set_to(phone)
         api.set_from('Tike ltd') #Requested sender name
         result = api.execute()
         for r in result:
@@ -583,7 +586,7 @@ def download_event_tickets(request,id):
     onsite_json=requests.get('onsite.tike.rw/get_events/'+str(id)).text
     #error handling here
     raw['timestamp']=datetime.datetime.now()
-    raw['event']=Show.objects.get(id=id).
+    raw['event']=Show.objects.get(id=id).title
     #err handling here
     tmp={}
     tickets=Ticket.objects.filter(event_id=id,paid=True)
