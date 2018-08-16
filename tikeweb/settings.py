@@ -78,7 +78,7 @@ production=True
 
 if True:#os.environ.get('PRODUCTION') != None: #HHHAlaugh at me buh this env thing is killin me
 '''
-'''
+
 import dj_database_url
 DATABASES ={}
 DATABASES['default'] = dj_database_url.config()
@@ -90,7 +90,7 @@ DATABASES = {
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+'''
 c=0#nothing
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
