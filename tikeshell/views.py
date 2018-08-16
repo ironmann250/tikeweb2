@@ -555,7 +555,7 @@ def validate(request):
         api.set_params(ticket.full_name,event.title,tk_type.tike_type,event.date.strftime("%d-%b at %H:%M"),pin) 
         phone=str(ticket.phone_number)
         if phone[:4] != '+250':
-            phone=phone+'+250'
+            phone='+250'+phone
         api.set_to(phone)
         api.set_from('Tike ltd') #Requested sender name
         result = api.execute()
