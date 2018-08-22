@@ -522,7 +522,7 @@ def pay_portal(request):
             dpapi.dt['details']=str(tk_type.tike_type)+' '+str(event.title)+' ticket'
             if request.META['HTTP_HOST'] == None:
                 return HttpResponseRedirect(previous_url)
-            dpapi.dt['redirect-url']='http://web.tike.rw/'+'/validate?pin='+pin
+            dpapi.dt['redirect_url']='http://web.tike.rw/'+'/validate?pin='+pin
             #request.META['HTTP_HOST']+'/validate?pin='+pin
             print request.META['HTTP_HOST']+'/validate?pin='+pin
             res=dpapi.create_token()
