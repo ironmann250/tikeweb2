@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^entertainment/(?P<event_id>\d+)',tikeshell_views.entertainment),
     url(r'^dashboard/(?P<user>\d+)',tikeshell_views.dashboard),
     url(r'^dashboard/',tikeshell_views.dashboard),
+    url(r'^support/',tikeshell_views.support),
     url(r'^test/(?P<val>.*)',tikeshell_views.test),
     url(r'^get_qrcode/(?P<text>.*)',tikeshell_views.render_qrcode),
     url(r'^get_tickets/(?P<id>.*)',tikeshell_views.download_event_tickets),
