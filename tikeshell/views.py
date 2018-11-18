@@ -545,6 +545,9 @@ def validate(request):
         event=Show.objects.get(id=ticket.event_id)
         tk_type=tickettype.objects.get(id=ticket.tickettype_id)
         dpapi.verify_token()
+        print '###################'
+        print 'validated',ticket.pin
+        print '###################'
         ticket.payed=True
         ticket.save()
         #add sms stuff
