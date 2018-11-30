@@ -44,6 +44,7 @@ def create_token(mapping=dt,headers = {'Content-Type': 'application/xml'}):
 	<PaymentAmount>$price</PaymentAmount>
 	<PaymentCurrency>RWF</PaymentCurrency>
 	<RedirectURL>$redirect_url</RedirectURL>
+	<backURL>$redirect_url</BackURL>
 	<DefaultPayment>MO</DefaultPayment>
 	<DefaultPaymentCountry>rwanda</DefaultPaymentCountry>
 	</Transaction>

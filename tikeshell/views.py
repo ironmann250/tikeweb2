@@ -522,7 +522,8 @@ def pay_portal(request):
             dpapi.dt['details']=str(tk_type.tike_type)+' '+str(event.title)+' ticket'
             if request.META['HTTP_HOST'] == None:
                 return HttpResponseRedirect(previous_url)
-            dpapi.dt['redirect_url']='http://web.tike.rw/'+'/validate?pin='+pin
+            dpapi.dt['back_url']='http://tikapp.herokuapp.com/'+'/validate?pin='+pin#use request.META['HTTP_HOST']
+            dpapi.dt['redirect_url']='http://tikapp.herokuapp.com/'
             #request.META['HTTP_HOST']+'/validate?pin='+pin
             print request.META['HTTP_HOST']+'/validate?pin='+pin
             res=dpapi.create_token()
@@ -566,9 +567,9 @@ def validate(request):
         result = api.execute()
         for r in result:
             print (r.id, r.points, r.status)
-        return HttpResponseRedirect("/all")#render thank you page
+        return JsonResponse({'stat':True})#HttpResponseRedirect("/all")#render thank you page
     except:
-        return HttpResponseRedirect("/")
+        return JsonResponse({'stat':False})#HttpResponseRedirect("/")
 
 def test(request,val):
     #any test wrtie them here
