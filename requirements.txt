@@ -6,6 +6,6 @@ qrcode==5.3
 mailer==0.8.1
 psycopg2==2.7.5
 south==1.0.2
-pillow==2.5.1
+pillow==9.0.1
 requests==2.18.4
 ./smsapi-client-1.1.3
